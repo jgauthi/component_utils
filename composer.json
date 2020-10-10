@@ -5,9 +5,11 @@
   "homepage": "https://github.com/jgauthi/component_utils",
   "require": {
     "php": ">=5.6",
+    "ext-curl": "*",
     "ext-dom": "*",
     "ext-mbstring": "*",
-    "ext-libxml": "*"
+    "ext-libxml": "*",
+    "ext-json": "*"
   },
   "autoload": {
     "files": [ "src/functions.inc.php" ],
