@@ -1,0 +1,13 @@
+{
+  "name": "jgauthi/component_utils",
+  "description": "My PHP functions and several utility methods of different types.",
+  "type": "library",
+  "homepage": "https://github.com/jgauthi/component_utils",
+  "require": {
+    "php": ">=5.6"
+  },
+  "license": "GPL-3.0",
+  "authors": [
+    { "name": "jgauthi", "homepage": "https://github.com/jgauthi" }
+  ]
+}
