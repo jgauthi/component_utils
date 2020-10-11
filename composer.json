@@ -10,7 +10,8 @@
     "ext-mbstring": "*",
     "ext-libxml": "*",
     "ext-json": "*",
-    "ext-simplexml": "*"
+    "ext-simplexml": "*",
+    "symfony/http-client": "*"
   },
   "autoload": {
     "files": [ "src/functions.inc.php" ],
