@@ -6,14 +6,8 @@ use DOMElement;
 
 class Dom
 {
-    /**
-     * Upgrade DomDocument->loadHTML(): add ID to all tables
-     * @param DOMDocument $dom
-     * @param $html
-     * @param int|null $option
-     * @return bool
-     */
-    static public function loadDomHTML(DOMDocument $dom, $html, $option = LIBXML_NOERROR)
+    // Upgrade DomDocument->loadHTML(): add ID to all tables
+    static public function loadDomHTML(DOMDocument $dom, $html, ?int $option = LIBXML_NOERROR): bool
     {
         $html = preg_replace_callback('#(<table)#i', function ($matches) {
             static $i = 0;
@@ -27,11 +21,7 @@ class Dom
         return $dom->loadHTML($html, $option);
     }
 
-    /**
-     * @param DOMElement $element
-     * @return array|null
-     */
-    static public function getClass(DOMElement $element)
+    static public function getClass(DOMElement $element): ?array
     {
         $class = $element->getAttribute('class');
         if (!empty($class)) {
@@ -41,13 +31,7 @@ class Dom
         return null;
     }
 
-    /**
-     * @param DOMDocument $dom
-     * @param string $id
-     * @param bool $titre
-     * @return array
-     */
-    static public function tableToArray(DOMDocument $dom, $id, $titre = false)
+    static public function tableToArray(DOMDocument $dom, string $id, bool $titre = false): array
     {
         $data = [];
         $tables = $dom->getElementById($id);

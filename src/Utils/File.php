@@ -8,12 +8,12 @@ class File
     /**
      * Retourne la taille plus l'unité arrondie.
      *
-     * @param int  $bytes  taille en octets
+     * @param mixed  $bytes  taille en octets
      * @param string $lang   indique la langue des unités de taille et le formatage des chiffres
      *
      * @return string chaine de caractères formatées
      */
-    static public function formatSize($bytes, $lang = 'fr')
+    static public function formatSize(int $bytes, string $lang = 'fr'): string
     {
         static $units = [
             'fr' => ['octet', 'Ko', 'Mo', 'Go', 'To'],
@@ -46,9 +46,8 @@ class File
 
     /**
      * Retourne la capacité d'upload du serveur
-     * @return string
      */
-    static public function get_upload_file_limit()
+    static public function get_upload_file_limit(): string
     {
         $normalize = function ($size) {
             if (preg_match('/^([\d\.]+)([KMG])$/i', $size, $match)) {
@@ -77,15 +76,13 @@ class File
             return $max_post;
         }
 
-        return min($max_upload, $max_post, $memory_limit);
+        $maxFileSize = min($max_upload, $max_post, $memory_limit);
+
+        return $maxFileSize;
     }
 
 
-    /**
-     * @param string $filename
-     * @return string
-     */
-    static public function nice_filename($filename)
+    static public function nice_filename(string $filename): string
     {
         // Retirer les accents
         $filename = remove_accents(mb_strtolower(trim($filename)));

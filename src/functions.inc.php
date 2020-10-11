@@ -1,21 +1,17 @@
 <?php
 /**
  * @param mixed $var
- * @return bool
  */
-function is_vide(&$var)
+function is_vide(&$var): bool
 {
     return (null === $var || '' === trim($var));
 }
 
 /**
  * @param mixed ...$args
- * @return bool
  */
-function is_vides()
+function is_vides(...$args): bool
 {
-    $args = func_get_args();
-
     foreach ($args as &$var) {
         if (is_vide($var)) {
             continue;
@@ -29,12 +25,9 @@ function is_vides()
 
 /**
  * @param mixed ...$args
- * @return bool
  */
-function is_empties()
+function is_empties(...$args): bool
 {
-    $args = func_get_args();
-
     foreach ($args as &$var) {
         if (empty($var)) {
             return true;
@@ -46,49 +39,17 @@ function is_empties()
     return false;
 }
 
-/**
- * @param string $mail
- * @return bool
- */
-if (function_exists('valid_email_address')) { // Fonction de base de drupal 7
-    function is_email($mail)
-    {
-        // https://api.drupal.org/api/drupal/includes!common.inc/function/valid_email_address/7
-        return valid_email_address($mail);
-    }
-} elseif (function_exists('filter_var')) { // php5.2+
-    function is_email($mail)
-    {
-        return (bool) (filter_var($mail, FILTER_VALIDATE_EMAIL));
-    }
-} else {
-    function is_email($mail)
-    {
-        $qtext = '[^\\x0d\\x22\\x5c\\x80-\\xff]';
-        $dtext = '[^\\x0d\\x5b-\\x5d\\x80-\\xff]';
-        $atom = '[^\\x00-\\x20\\x22\\x28\\x29\\x2c\\x2e\\x3a-\\x3c'.
-            '\\x3e\\x40\\x5b-\\x5d\\x7f-\\xff]+';
-        $quoted_pair = '\\x5c[\\x00-\\x7f]';
-        $domain_literal = "\\x5b($dtext|$quoted_pair)*\\x5d";
-        $quoted_string = "\\x22($qtext|$quoted_pair)*\\x22";
-        $domain_ref = $atom;
-        $sub_domain = "($domain_ref|$domain_literal)";
-        $word = "($atom|$quoted_string)";
-        $domain = "$sub_domain(\\x2e$sub_domain)*";
-        $local_part = "$word(\\x2e$word)*";
-        $addr_spec = "$local_part\\x40$domain";
-
-        return preg_match("!^$addr_spec$!", $mail);
-    }
+function is_email(string $mail): bool
+{
+    return (bool) (filter_var($mail, FILTER_VALIDATE_EMAIL));
 }
 
 /**
  * Preg match with a array pattern.
  *
  * @param string|array $pattern
- * @return bool
  */
-function preg_match_pattern($pattern, $subject, &$matches = [])
+function preg_match_pattern($pattern, string $subject, array &$matches = []): bool
 {
     if (!is_array($pattern)) {
         return preg_match($pattern, $subject, $matches);
@@ -103,13 +64,30 @@ function preg_match_pattern($pattern, $subject, &$matches = [])
     return true;
 }
 
+//-------------------------------------------------
+// Gestion des integers / float
+//-------------------------------------------------
 
-/**
- * @param string|null $txt
- * @param string $charset
- * @return string
- */
-function htmltxt($txt, $charset = 'UTF-8')
+function getFloatFromString(string $str): float
+{
+    if (mb_strstr($str, ',')) {
+        $str = str_replace('.', '', $str); // replace dots (thousand seps) with blancs
+        $str = str_replace(',', '.', $str); // replace ',' with '.'
+    }
+
+    // search for number that may contain '.'
+    if (preg_match('#([0-9\.]+)#', $str, $match)) {
+        return (float) ($match[0]);
+    }
+
+    return (float) $str; // take some last chances with floatval
+}
+
+
+//-------------------------------------------------
+// Fonction gestion TEXTE
+//-------------------------------------------------
+function htmltxt(?string $txt, string $charset = 'UTF-8'): string
 {
     return htmlentities($txt, ENT_QUOTES, $charset);
 }
@@ -126,7 +104,7 @@ function htmltxt($txt, $charset = 'UTF-8')
  * @return string input string without accent
  */
 if (!defined('WORDPRESS_SCRIPT')) {
-    function remove_accents($str, $utf8 = true)
+    function remove_accents(string $str, bool $utf8 = true): string
     {
         $str = (string) $str;
         if (null === $utf8) {
@@ -275,11 +253,7 @@ if (!defined('WORDPRESS_SCRIPT')) {
 
 
 //-- Gestion de la mémoire -------------------------------------------------------------------------
-
-/**
- * @return string
- */
-function current_memory()
+function current_memory(): string
 {
-    return 'current memory: '. \Jgauthi\Component\Utils\File::formatSize(memory_get_usage(), '%.2f');
+    return 'current memory: '.\Jgauthi\Component\Utils\File::formatSize(memory_get_usage(), '%.2f');
 }

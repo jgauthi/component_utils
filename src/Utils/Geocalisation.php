@@ -7,10 +7,8 @@ class Geocalisation
 {
     /**
      * selon un nombre de latitude longitude retourne la taille du zomm et la latitude longitude centrale.
-     * @param iterable $liste_points
-     * @return array
      */
-    static public function enableAutoZoom($liste_points = [])
+    static public function enableAutoZoom(iterable $liste_points = []): array
     {
         $latitude_array = $longitude_array = [];
         foreach ($liste_points as $key => $value) {
@@ -51,9 +49,8 @@ class Geocalisation
     /**
      * Récupérer la véritable adresse IP d'un visiteur.
      * @todo Get ip from terminal mode
-     * @return string|null
      */
-    static public function get_ip()
+    static public function get_ip(): ?string
     {
         if (isset($_SERVER['HTTP_CLIENT_IP'])) { // IP si internet partagé
             return $_SERVER['HTTP_CLIENT_IP'];
@@ -68,14 +65,8 @@ class Geocalisation
 
     /**
      * https://stackoverflow.com/a/10054282
-     * @param string $lat1
-     * @param string $lng1
-     * @param string $lat2
-     * @param string $lng2
-     * @param int $earthRadius
-     * @return float
      */
-    static public function geoDistance($lat1, $lng1, $lat2, $lng2, $earthRadius = 6371000)
+    static public function geoDistance(string $lat1, string $lng1, string $lat2, string $lng2, int $earthRadius = 6371000): float
     {
         // convert from degrees to radians
         $latFrom = deg2rad($lat1);
@@ -95,16 +86,8 @@ class Geocalisation
 
     /**
      * transport: driving, bicycling, transit (transport en commun), walking
-     * @param string $lat1
-     * @param string $lng1
-     * @param string $lat2
-     * @param string $lng2
-     * @param string|null $apikey
-     * @param string $transport
-     * @param string $lang
-     * @return array|null
      */
-    static public function GetDrivingDistance($lat1, $lng1, $lat2, $lng2, $apikey = null, $transport = 'driving', $lang = 'fr-FR')
+    static public function GetDrivingDistance(string $lat1, string $lng1, string $lat2, string $lng2, ?string $apikey = null, string $transport = 'driving', string $lang = 'fr-FR'): ?array
     {
         $url = "https://maps.googleapis.com/maps/api/distancematrix/json?key={$apikey}&origins={$lat1},{$lng1}&destinations={$lat2},{$lng2}&mode={$transport}&language={$lang}";
         $ch = curl_init();
@@ -133,15 +116,7 @@ class Geocalisation
         ];
     }
 
-    /**
-     * @param string $lat1
-     * @param string $lng1
-     * @param array $destinataires
-     * @param string|null $apikey
-     * @param string $lang
-     * @return string|null
-     */
-    static public function GetDrivingDistances($lat1, $lng1, $destinataires, $apikey = null, $lang = 'fr-FR')
+    static public function GetDrivingDistances(string $lat1, string $lng1, array $destinataires, ?string $apikey = null, string $lang = 'fr-FR'): ?string
     {
         // $destinataires = array('lat1,lng1', 'lat2,lng2', 'lat3,lng3', 'lat4,lng4');
         $target = implode('|', $destinataires);
@@ -169,11 +144,8 @@ class Geocalisation
 
     /**
      * Permet d'avoir la géolocalisation selon une adresse.
-     * @param string $address
-     * @param string|null $google_apikey_public
-     * @return string|null
      */
-    static public function getAddress($address, $google_apikey_public = null)
+    static public function getAddress(string $address, ?string $google_apikey_public = null): ?string
     {
         if (empty($address)) {
             throw new InvalidArgumentException('Address require.');
@@ -208,4 +180,5 @@ class Geocalisation
 
         return $json['results'][0]['geometry']['location'];
     }
+
 }

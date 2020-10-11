@@ -5,13 +5,8 @@ class Text
 {
     /**
      * Return first chars in string.
-     * @param string|null $chaine
-     * @param int $max
-     * @param string $caractere
-     * @param string $encoding
-     * @return string|null
      */
-    static public function resume($chaine, $max = 50, $caractere = '…', $encoding = 'UTF-8')
+    static public function resume(?string $chaine, int $max = 50, string $caractere = '…', string $encoding = 'UTF-8'): ?string
     {
         if (empty($chaine)) {
             return null;
@@ -29,15 +24,11 @@ class Text
         return $chaine;
     }
 
+
     /**
      * Effectue la césure d'une chaîne (compatible UTF-8)
-     * @param string $str
-     * @param int $width
-     * @param string $break
-     * @param false|bool $cut
-     * @return string
      */
-    static public function mb_wordwrap($str, $width = 75, $break = PHP_EOL, $cut = false)
+    static public function mb_wordwrap(string $str, int $width = 75, string $break = PHP_EOL, bool $cut = false): string
     {
         $lines = explode($break, $str);
         foreach ($lines as &$line) {
@@ -74,12 +65,8 @@ class Text
 
     /**
      * Uppercase each first letter words (Multibyte (UTF-8) Function)
-     * @param string $str
-     * @param string $encoding
-     * @param false|bool $lower_str_end
-     * @return string
      */
-    static public function mb_ucfirst($str, $encoding = 'UTF-8', $lower_str_end = false)
+    static public function mb_ucfirst(string $str, string $encoding = 'UTF-8', bool $lower_str_end = false): string
     {
         $first_letter = mb_strtoupper(mb_substr($str, 0, 1, $encoding), $encoding);
         if ($lower_str_end) {
@@ -95,11 +82,8 @@ class Text
 
     /**
      * Uppercase each first letter words (Multibyte (UTF-8) Function)
-     * @param string $str
-     * @param string $charset
-     * @return string
      */
-    static public function mb_ucwords($str, $charset = 'UTF-8')
+    static public function mb_ucwords(string $str, string $charset = 'UTF-8'): string
     {
         return mb_convert_case(mb_strtolower($str, $charset), MB_CASE_TITLE, $charset);
     }
@@ -107,11 +91,8 @@ class Text
     /**
      * Converts a string into a slug. http://en.wikipedia.org/wiki/Slug_(web_publishing)#Slug
      * Source: https://gist.github.com/Narno/6540364 (Narno)
-     * @param string $string
-     * @param string $separator
-     * @return string
      */
-    static public function slugify($string, $separator = '-')
+    static public function slugify(string $string, string $separator = '-'): string
     {
         $string = preg_replace('/
 		[\x09\x0A\x0D\x20-\x7E]              # ASCII
@@ -138,16 +119,17 @@ class Text
         return $string;
     }
 
-    /**
+    /** A TESTER
      * Determine si une chaine est en UTF-8
      * fonction cree par le W3C.
      *
      * @see http://w3.org/International/questions/qa-forms-utf-8.html
      *
      * @param string $string chaine de caractere a analyser
+     *
      * @return bool vrai si UTF-8, faux sinon
      */
-    static public function isUtf8($string)
+    static public function isUtf8(string $string): bool
     {
         return preg_match('%^(?:
 			[\x09\x0A\x0D\x20-\x7E] # ASCII
@@ -161,11 +143,7 @@ class Text
 			)*$%xs', $string);
     }
 
-    /**
-     * @param string $text
-     * @return string
-     */
-    static public function forceUtf8($text)
+    static public function forceUtf8(string $text): string
     {
         if (!mb_detect_encoding($text, 'UTF-8', true)) {
             $text = utf8_encode($text);
@@ -177,10 +155,9 @@ class Text
     /**
      * Fix unserialize (Result conflict with ISO and Accents)
      * From: https://gist.github.com/jgauthi/79f7c3a2a39f4614681e70e6f483fb5e
-     * @param string $data
      * @return mixed
      */
-    static public function unserialize($data)
+    static public function unserialize(string $data)
     {
         // Fix nb_char on php variable
         $out = preg_replace_callback(
@@ -212,11 +189,8 @@ class Text
 
     /**
      * Encode specials chars only (useful for mailto:mailto:?subject={$title}&body={$content}).
-     * @param string $text
-     * @param string $charset
-     * @return string
      */
-    static public function urlencode_entities($text, $charset = 'UTF-8')
+    static public function urlencode_entities(string $text, string $charset = 'UTF-8'): string
     {
         static $chars = null, $replace = null;
 

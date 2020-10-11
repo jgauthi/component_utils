@@ -13,13 +13,9 @@ class Date
 {
     /**
      * Init a datetime class with several check exception
-     * @param string $time
-     * @param DateTimeZone|null $timezone
-     * @param bool|null $future null=no check, false=date must be in past, true=date must be future
-     * @return DateTime
      * @throws Exception
      */
-    static public function DateTime($time, $timezone = null, $future = null)
+    static public function DateTime(string $time, ?DateTimeZone $timezone = null, ?bool $future = null): DateTime
     {
         $date = new DateTime($time, $timezone);
         return self::valideDate($date, $timezone, $future);
@@ -34,7 +30,7 @@ class Date
      * @return DateTime
      * @throws Exception
      */
-    static public function createFromFormat($time, $format = 'Y-m-d', $timezone = null, $future = null)
+    static public function createFromFormat(string $time, string $format = 'Y-m-d', ?DateTimeZone $timezone = null, ?bool $future = null): DateTime
     {
         $date = DateTime::createFromFormat($format, $time, $timezone);
         return self::valideDate($date, $timezone, $future);
@@ -48,7 +44,7 @@ class Date
      * @return DateTime|DateTimeInterface
      * @throws Exception
      */
-    static public function valideDate($date, $timezone = null, $future = null)
+    static public function valideDate(DateTimeInterface $date, ?DateTimeZone $timezone = null, ?bool $future = null): DateTimeInterface
     {
         $today = new DateTime('now', $timezone);
 
@@ -85,12 +81,7 @@ class Date
         )*/
 
 
-    /**
-     * @param string $date_debut
-     * @param string $date_fin
-     * @return array
-     */
-    static public function mois_difference($date_debut, $date_fin)
+    static public function mois_difference(string $date_debut, string $date_fin): array
     {
         $mois = (int) (mb_substr($date_debut, -2, 2));
         $annee = (int) (mb_substr($date_debut, 0, 4));
@@ -118,13 +109,9 @@ class Date
 
 
     /**
-     * @param DateTimeInterface $start
-     * @param DateTime $end
-     * @param string $format
-     * @return array
      * @throws Exception
      */
-    static public function date_interval($start, $end, $format = 'Y-m-d')
+    static public function date_interval(DateTimeInterface $start, DateTime $end, string $format = 'Y-m-d'): array
     {
         // Calcul date période
         $interval = new DateInterval('P1D');
@@ -142,11 +129,9 @@ class Date
 
     /**
      * Convertir une date(time) en timestamp, Date FR(DD-MM-YYYY) et US(YYYY-MM-DD) supporté seulement
-     * @param string $date
-     * @return int
      * @throws InvalidArgumentException
      */
-    static public function get_timestamp_from_date($date)
+    static public function get_timestamp_from_date(string $date): int
     {
         if (empty($date)) {
             throw new InvalidArgumentException('Date is empty');
@@ -204,11 +189,9 @@ class Date
 
     /**
      * Convert ISO 8601 values like P2DT15M33S to a total value of seconds.
-     * @param string $ISO8601
-     * @return int
      * @throws Exception
      */
-    static public function ISO8601ToSeconds($ISO8601)
+    static public function ISO8601ToSeconds(string $ISO8601): int
     {
         $interval = new DateInterval($ISO8601);
 
@@ -220,10 +203,9 @@ class Date
 
     /**
      * Fournit la différence d'une date interval en minute
-     * @param DateInterval $interval
-     * @return int
+     * Usage: applis/mindphp/date_diff.php
      */
-    static public function IntervalInMinutes($interval)
+    static public function IntervalInMinutes(DateInterval $interval): int
     {
         $days = $interval->format('%a');
         $diff_minute = ($days * 24 * 60) + ($interval->h * 60) + $interval->i;
@@ -231,12 +213,7 @@ class Date
         return ($interval->invert) ? -$diff_minute : $diff_minute;
     }
 
-    /**
-     * @param DateTimeInterface $start
-     * @param DateTimeInterface $end
-     * @return int
-     */
-    static public function DiffMinute($start, $end)
+    static public function DiffMinute(DateTimeInterface $start, DateTimeInterface $end): int
     {
         $interval = $start->diff($end);
 
@@ -245,11 +222,9 @@ class Date
 
     /**
      * Return format from date, can be use for detect date incomplet (ex: 2020-07) and usable on DateTime::format()
-     * @param string $date
-     * @return string
      * @throws InvalidArgumentException
      */
-    static public function getFormatFromDate($date)
+    static public function getFormatFromDate(string $date): string
     {
         if (preg_match('#^([0-9]{4})(/|-[0-1]?[0-9])?(/|-[0-3]?[0-9])?#', $date, $export)) { // Date US
             $year = 1;

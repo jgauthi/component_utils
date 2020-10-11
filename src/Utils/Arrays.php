@@ -12,10 +12,8 @@ class Arrays
      * @param array $args
      * @return null|array
      */
-    static public function combine()
+    static public function combine(...$args): ?array
     {
-        $args = func_get_args();
-
         if (empty($args)) {
             return null;
         } elseif (1 === count($args) && !empty($args[0])) {
@@ -50,7 +48,7 @@ class Arrays
      *
      * @return string|null
      */
-    static public function implode($line, $data, $separator = '=', $firstLine = null)
+    static public function implode(string $line, array $data, string $separator = '=', ?string $firstLine = null): ?string
     {
         if (!is_array($data) || 0 === count($data)) {
             return null;
@@ -78,7 +76,7 @@ class Arrays
      *
      * @return string HTML Table
      */
-    static public function to_html_table($data, $title_table = null, $encode = 'UTF-8')
+    static public function to_html_table(array $data, ?string $title_table = null, string $encode = 'UTF-8'): string
     {
         if (empty($data)) {
             throw new InvalidArgumentException('Argument data is empty or is not an array.');
@@ -143,7 +141,7 @@ class Arrays
      *
      * @return string HTML Table
      */
-    static public function to_html_table_title_cmp($data, $title_table = null, $encode = 'UTF-8')
+    static public function to_html_table_title_cmp(array $data, ?string $title_table = null, string $encode = 'UTF-8'): string
     {
         if (empty($data)) {
             throw new InvalidArgumentException('Argument data is empty or is not an array.');
@@ -215,7 +213,7 @@ class Arrays
      *
      * @return string HTML Table
      */
-    static public function to_html_table_title_filter_col($data, $title_table, $cols_display, $encode = 'UTF-8')
+    static public function to_html_table_title_filter_col(array $data, ?string $title_table, array $cols_display, string $encode = 'UTF-8'): string
     {
         if (empty($data) || !is_array($data)) {
             throw new InvalidArgumentException('Argument data is empty or is not an array.');
@@ -280,7 +278,7 @@ class Arrays
      *
      * @return string
      */
-    static public function to_xml(&$data, $balise = '<?xml version="1.0"?><data></data>', $file = null)
+    static public function to_xml(array &$data, string $balise = '<?xml version="1.0"?><data></data>', ?string $file = null): string
     {
         $xml_data = new SimpleXMLElement($balise);
 
@@ -303,10 +301,8 @@ class Arrays
 
     /**
      * static public function definition to convert array to xml data.
-     * @param array $data
-     * @param SimpleXMLElement $xml_data
      */
-    static public function to_xml_data(&$data, SimpleXMLElement &$xml_data)
+    static public function to_xml_data(array &$data, SimpleXMLElement &$xml_data): void
     {
         if (empty($data)) {
             return;
@@ -330,9 +326,10 @@ class Arrays
      * Return an array with all values from a array with mutliples subvalues.
      *
      * @param array|object $array
+     *
      * @return array
      */
-    static public function values_recursive($array)
+    static public function values_recursive($array): array
     {
         $flat = [];
 
@@ -362,7 +359,7 @@ class Arrays
      *
      * @return array
      */
-    static public function values_recursive_files($array, $regexp_filename = null, $previus_dir = null)
+    static public function values_recursive_files($array, ?array $regexp_filename = null, ?string $previus_dir = null): array
     {
         $flat = [];
 

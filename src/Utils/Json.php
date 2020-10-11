@@ -16,7 +16,7 @@ class Json
      * @throws InvalidArgumentException if the JSON cannot be encoded.
      * @link http://www.php.net/manual/en/function.json-encode.php
      */
-    static public function encode($value, $options = 0, $depth = 512)
+    static public function encode($value, int $options = 0, int $depth = 512): string
     {
         $json = json_encode($value, $options, $depth);
         if (json_last_error() !== JSON_ERROR_NONE) {
@@ -39,7 +39,7 @@ class Json
      * @throws InvalidArgumentException if the JSON cannot be decoded.
      * @link http://www.php.net/manual/en/function.json-decode.php
      */
-    static public function decode($jsonContent, $assoc = false, $depth = 512, $options = 0)
+    static public function decode(string $jsonContent, bool $assoc = false, int $depth = 512, int $options = 0)
     {
         $jsonContent = json_decode($jsonContent, $assoc, $depth, $options);
 
@@ -57,7 +57,7 @@ class Json
      * @param int $httpStatus
      * @return bool
      */
-    static public function response(array $data, $httpStatus = 200)
+    static public function response(array $data, int $httpStatus = 200): bool
     {
         if (headers_sent()) {
             return false;
@@ -73,10 +73,8 @@ class Json
     /**
      * Returns a localized json error message in French
      * For english version, you can use the PHP function json_last_error_msg()
-     * @param int $json_last_error
-     * @return string|null
      */
-    static public function error_msg($json_last_error)
+    static public function error_msg(int $json_last_error): ?string
     {
         switch ($json_last_error) {
             case JSON_ERROR_NONE:

@@ -7,11 +7,8 @@ class Ftp
 {
     /**
      * @param resource $conn
-     * @param string $localDir
-     * @param string $ftpDir
-     * @param int $folderChmod
      */
-    static public function downloadDir($conn, $localDir, $ftpDir, $folderChmod = 0775)
+    static public function downloadDir($conn, string $localDir, string $ftpDir, int $folderChmod = 0775): void
     {
         if (!ftp_chdir($conn, $ftpDir)) {
             throw new InvalidArgumentException('Impossible de changer de dossier FTP: '. $ftpDir);

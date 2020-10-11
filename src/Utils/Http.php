@@ -10,7 +10,7 @@ class Http
      * Example: applis/symfony/components/http-foundation/01-variable.php:11
      * @param string|int $page
      */
-    static public function redirection($page)
+    static public function redirection($page): void
     {
         // Page 404
         if (404 === $page) {
@@ -39,12 +39,7 @@ class Http
         exit();
     }
 
-    /**
-     * @param string $page
-     * @param int $seconde
-     * @return string
-     */
-    static public function reload_page($page, $seconde = 5)
+    static public function reload_page(string $page, int $seconde = 5): string
     {
         $millisecond = $seconde * 1000;
 
@@ -57,10 +52,9 @@ class Http
      * Force download file.
      * Usage for Legacy Code, use instead if possible: Symfony\Component\HttpFoundation\{HeaderUtils, Response}
      * Example: applis/symfony/components/http-foundation/10-SendFile.php
-     * @param string $file
      * @throws InvalidArgumentException
      */
-    static public function download_file($file)
+    static public function download_file(string $file): void
     {
         if (headers_sent()) {
             throw new InvalidArgumentException('Erreur détecté durant l\'execution du script, fin de parcours');
@@ -94,11 +88,9 @@ class Http
     /**
      * Usage for Legacy Code, use instead if possible: Symfony\Component\HttpFoundation\{HeaderUtils, BinaryFileResponse}
      * Example: applis/symfony/components/http-foundation/10-SendStaticFile.php
-     * @param string $filename
-     * @param string $content
      * @throws InvalidArgumentException
      */
-    static public function download_content($filename, $content)
+    static public function download_content(string $filename, string $content): void
     {
         if (headers_sent()) {
             throw new InvalidArgumentException('Erreur détecté durant l\'execution du script, fin de parcours');
@@ -129,7 +121,7 @@ class Http
     /**
      * Improve flush function to display ONLIVE content on browser
      */
-    static public function flush()
+    static public function flush(): void
     {
         ob_flush();
         flush();

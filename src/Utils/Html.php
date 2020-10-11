@@ -3,11 +3,7 @@ namespace Jgauthi\Component\Utils;
 
 class Html
 {
-    /**
-     * @param string $html
-     * @return string
-     */
-    static public function strip_body($html)
+    static public function strip_body(string $html): string
     {
         // php4
         // return @eregi_replace("(^.+<body>)|(</body>.+$)", '', $html);
@@ -21,10 +17,8 @@ class Html
 
     /**
      * [WYSIWYG] Détecter si il y a un copier/coller issus de word
-     * @param string $string
-     * @return bool|null
      */
-    static public function detect_msword_string($string)
+    static public function detect_msword_string(string $string): ?bool
     {
         $list_regexp = [
             '#<!--\[if (g|l)te mso [0-9]*\]>#i',
@@ -46,10 +40,8 @@ class Html
     /**
      * Convertir les caractères non standards de Microsoft Word en ASCII + Retire de manière imparfaite, les balises de word
      * Use to check word html
-     * @param string $string
-     * @return string
      */
-    static public function msword_text_to_ascii($string)
+    static public function msword_text_to_ascii(string $string): string
     {
         if (self::detect_msword_string($string)) {
             $string = strip_tags($string, '<p><br><strong><b><em><i><u><ul><li><ol>');
@@ -64,21 +56,15 @@ class Html
         return $string;
     }
 
-    /**
-     * @param string $string
-     * @return bool
-     */
-    static public function is_html($string)
+    static public function is_html(string $string): bool
     {
         return preg_match('/<[^<]+>/', $string, $m);
     }
 
     /**
      * Transform #tag and @account to html.
-     * @param string $string
-     * @return string
      */
-    static public function strToTwitter($string)
+    static public function strToTwitter(string $string): string
     {
         // Detect Twitter #tag
         preg_match_all("/(#\w+)/iu", $string, $matches);
@@ -113,7 +99,7 @@ class Html
      *
      * @return string
      */
-    static public function convertUrlInString($string, $target = '_blank')
+    static public function convertUrlInString(string $string, string $target = '_blank'): string
     {
         $string = preg_replace(
             '~[[:alpha:]]+://[^<>[:space:]]+[[:alnum:]/]~',

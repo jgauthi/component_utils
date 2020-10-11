@@ -6,11 +6,9 @@ use Exception;
 class Folder
 {
     /**
-     * @param string $dir
-     * @return array
      * @throws Exception
      */
-    static public function getArchitecture($dir)
+    static public function getArchitecture(string $dir): array
     {
         if (!is_dir($dir)) {
             throw new Exception("The folder {$dir} is invalid.");
@@ -32,11 +30,7 @@ class Folder
         return $liste;
     }
 
-    /**
-     * @param iterable $dir_array
-     * @return string
-     */
-    static public function displayArchitecture($dir_array)
+    static public function displayArchitecture(iterable $dir_array): string
     {
         $html = '<ul>';
         foreach ($dir_array as $index => $file) {
@@ -56,11 +50,9 @@ class Folder
     }
 
     /**
-     * @param string $dir
-     * @return bool
      * @throws Exception
      */
-    static public function delete($dir)
+    static public function delete(string $dir): bool
     {
         if (!is_dir($dir)) {
             throw new Exception("The folder {$dir} is invalid.");

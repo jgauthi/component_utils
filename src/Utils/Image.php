@@ -6,15 +6,7 @@ use InvalidArgumentException;
 
 class Image
 {
-    /**
-     * @param string $image
-     * @param int $max_width
-     * @param int $max_height
-     * @param string|null $align
-     * @param false|bool $strict
-     * @return string
-     */
-    static public function cssSize($image, $max_width = 400, $max_height = 400, $align = null, $strict = false)
+    static public function cssSize(string $image, int $max_width = 400, int $max_height = 400, ?string $align = null, bool $strict = false): string
     {
         if (!is_readable($image)) {
             throw new InvalidArgumentException("The image file {$image} does not exists or not readable.");
@@ -61,12 +53,8 @@ class Image
     /**
      * Quality is a number between 0 (best compression) and 100 (best quality)
      * http://stackoverflow.com/questions/1201798/use-php-to-convert-png-to-jpg-with-compression
-     * @param string $originalFile
-     * @param string $outputFile
-     * @param int $quality
-     * @return bool
      */
-    static public function convert($originalFile, $outputFile, $quality = 80)
+    static public function convert(string $originalFile, string $outputFile, int $quality = 80): bool
     {
         if (!is_readable($originalFile)) {
             throw new InvalidArgumentException("The image file {$originalFile} does not exists or not readable.");
@@ -107,11 +95,10 @@ class Image
     }
 
     /**
-     * @param string $filename
      * @return resource
      * @throws Exception
      */
-    static public function createFromBMP($filename)
+    static public function createFromBMP(string $filename)
     {
         //Ouverture du fichier en mode binaire
         if (!$f1 = fopen($filename, 'r')) {
@@ -209,11 +196,7 @@ class Image
         return $res;
     }
 
-    /**
-     * @param string $image
-     * @return string
-     */
-    static public function toBase64($image)
+    static public function toBase64(string $image): string
     {
         if (!file_exists($image)) {
             throw new InvalidArgumentException("Image '{$image}' not found.");

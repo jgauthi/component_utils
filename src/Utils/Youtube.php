@@ -18,11 +18,7 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class Youtube
 {
-    /**
-     * @param string $url
-     * @return string|null
-     */
-    static public function getCodeFromUrl(&$url)
+    static public function getCodeFromUrl(string &$url): ?string
     {
         if (preg_match('#v=([^&$]+)#i', $url, $row)) {
             return $row[1];
@@ -35,11 +31,7 @@ class Youtube
         return null;
     }
 
-    /**
-     * @param string $url
-     * @return string|null
-     */
-    static public function getEmbedUrlVideo(&$url)
+    static public function getEmbedUrlVideo(string &$url): ?string
     {
         if (empty($url)) {
             return null;
@@ -53,11 +45,6 @@ class Youtube
     }
 
     /**
-     * @param string $apikey
-     * @param HttpClientInterface $httpClient
-     * @param string $videoId
-     * @param bool $additionnalInfo
-     * @return array
      * @throws \Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface
      * @throws \Symfony\Contracts\HttpClient\Exception\DecodingExceptionInterface
      * @throws \Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface
@@ -65,7 +52,7 @@ class Youtube
      * @throws \Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
      * @throws Exception
      */
-    static public function getInfo($apikey, HttpClientInterface $httpClient, $videoId, $additionnalInfo = false)
+    static public function getInfo(string $apikey, HttpClientInterface $httpClient, string $videoId, bool $additionnalInfo = false): array
     {
         if (empty($apikey)) {
             throw new InvalidArgumentException('Google apikey not defined or empty');
@@ -100,13 +87,7 @@ class Youtube
         return $result;
     }
 
-    /**
-     * @param string $videoId
-     * @param int $width
-     * @param int $height
-     * @return string
-     */
-    static public function player($videoId, $width = 560, $height = 315)
+    static public function player(string $videoId, int $width = 560, int $height = 315): string
     {
         $html = '<iframe width="'. $width .'" height="'.$height.'" '.
             'src="https://www.youtube-nocookie.com/embed/'.$videoId.'" frameborder="0" '.

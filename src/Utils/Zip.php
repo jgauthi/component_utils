@@ -5,13 +5,7 @@ use ZipArchive;
 
 class Zip
 {
-    /**
-     * @param ZipArchive $zipArchive
-     * @param string $dir
-     * @param string|null $namedir
-     * @return bool|null
-     */
-    static public function addDir(ZipArchive $zipArchive, $dir, $namedir = null)
+    static public function addDir(ZipArchive $zipArchive, string $dir, ?string $namedir = null): ?bool
     {
         if (!is_dir($dir)) {
             return false;

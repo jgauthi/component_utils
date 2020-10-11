@@ -5,10 +5,8 @@ class Url
 {
     /**
      * Get domain from URL ( http://stackoverflow.com/questions/16027102/get-domain-name-from-full-url ).
-     * @param string $url
-     * @return string|null
      */
-    static public function getDomain($url)
+    static public function getDomain(string $url): ?string
     {
         $pieces = parse_url($url);
         $domain = isset($pieces['host']) ? $pieces['host'] : '';
