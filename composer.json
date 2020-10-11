@@ -13,7 +13,8 @@
     "ext-libxml": "*",
     "ext-json": "*",
     "ext-simplexml": "*",
-    "symfony/http-client": "*"
+    "symfony/http-client": "*",
+    "ext-zip": "*"
   },
   "require-dev": {
     "phpunit/phpunit": "4.*"
