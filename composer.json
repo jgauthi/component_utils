@@ -9,7 +9,8 @@
     "ext-dom": "*",
     "ext-mbstring": "*",
     "ext-libxml": "*",
-    "ext-json": "*"
+    "ext-json": "*",
+    "ext-simplexml": "*"
   },
   "autoload": {
     "files": [ "src/functions.inc.php" ],

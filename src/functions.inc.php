@@ -105,71 +105,6 @@ function preg_match_pattern($pattern, $subject, &$matches = [])
 
 
 /**
- * Function to implode With key + value.
- *
- * @param string $line separator between data
- * @param array $data
- * @param string $separator (optional, default =) separator between key and value
- * @param string|null $firstline (optional, default null) string in first line
- *
- * @return string|null
- */
-function implode_with_index($line, $data, $separator = '=', $firstline = null)
-{
-    if (!is_array($data) || 0 === count($data)) {
-        return null;
-    }
-
-    foreach ($data as $id => $value) {
-        if (!isset($chaine)) {
-            $chaine = $firstline;
-        } else {
-            $chaine .= $line;
-        }
-
-        $chaine .= $id.$separator.$value;
-    }
-
-    return $chaine;
-}
-
-/**
- * Fix unserialize (Result conflict with ISO and Accents)
- * From: https://gist.github.com/jgauthi/79f7c3a2a39f4614681e70e6f483fb5e
- * @param string $data
- * @return mixed
- */
-function mb_unserialize($data)
-{
-    // Fix nb_char on php variable
-    $out = preg_replace_callback(
-        '#s:(\d+):"(.*?)";#s',
-        function ($row) { return sprintf('s:%s:"%s";', mb_strlen($row[2]), $row[2]); },
-        $data
-    );
-    $out = @unserialize($out);
-
-    // fix ISO accent
-    if (empty($out)) {
-        $out = preg_replace_callback(
-            '!s:(\d+):"(.*?)";!s',
-            function($m){
-                $len = strlen($m[2]);
-                return "s:$len:\"{$m[2]}\";";
-            },
-            $data);
-
-        $out = @unserialize($out);
-    }
-
-    if (empty($out)) {
-        $out = unserialize($data);
-    }
-
-    return $out;
-}
-
-/**
  * @param string|null $txt
  * @param string $charset
  * @return string
@@ -177,29 +112,6 @@ function mb_unserialize($data)
 function htmltxt($txt, $charset = 'UTF-8')
 {
     return htmlentities($txt, ENT_QUOTES, $charset);
-}
-
-/**
- * Encode specials chars only (useful for mailto:mailto:?subject={$title}&body={$content}).
- * @param string $text
- * @param string $charset
- * @return string
- */
-function urlencode_entities($text, $charset = 'UTF-8')
-{
-    static $chars = null, $replace = null;
-
-    if (null === $chars) {
-        $chars = get_html_translation_table(HTML_ENTITIES, ENT_NOQUOTES, $charset);
-        $chars = array_keys($chars);
-        array_unshift($chars, '%', "\n");
-
-        $replace = array_map(function ($char) { return urlencode($char); }, $chars);
-    }
-
-    $text = str_replace($chars, $replace, $text);
-
-    return $text;
 }
 
 /**
@@ -359,4 +271,15 @@ if (!defined('WORDPRESS_SCRIPT')) {
 
         return $str;
     }
+}
+
+
+//-- Gestion de la mémoire -------------------------------------------------------------------------
+
+/**
+ * @return string
+ */
+function current_memory()
+{
+    return 'current memory: '. \Jgauthi\Component\Utils\File::formatSize(memory_get_usage(), '%.2f');
 }
