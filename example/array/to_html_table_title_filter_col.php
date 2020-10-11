@@ -32,7 +32,7 @@ $table = call_user_func_array('Jgauthi\Component\Utils\Arrays::to_html_table_tit
     <div class="col-sm-8">
         <?=$table?>
         <p>Ini file: <?=basename($inifile); ?></p>
-        <blockquote><?=readfile($inifile)?></blockquote>
+        <blockquote><?=nl2br(file_get_contents($inifile))?></blockquote>
     </div>
     <div class="col-sm-2"></div>
 </div>

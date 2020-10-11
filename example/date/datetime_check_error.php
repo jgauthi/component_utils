@@ -11,6 +11,7 @@ foreach ($dates as $date) {
     try {
         $dateCheck = Date::DateTime($date);
     } catch (Exception $e) {
+        $dateCheck = 'error';
         $result = "false (<em>{$e->getMessage()}</em>)";
     }
 
@@ -22,9 +23,12 @@ foreach ($dates as $date) {
     }
 
     ?><p>
-        <?=$date?>: <?php var_dump($dateCheck); ?>
-        Test Date: <strong><?=$dateCheck?></strong>,
-        is Future: <strong><?=$isFuture?></strong>,
-        Result: <?=$result?>
-    </p><?php
+    <?=$date?>:
+    Test Date: <strong><?=$date?></strong>,
+    is Future: <strong><?=$isFuture?></strong>,
+    Result: <?=$result?>
+    </p>
+    <?php dump($dateCheck); ?>
+    <hr>
+    <?php
 }
