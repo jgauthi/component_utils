@@ -1,0 +1,47 @@
+<?php
+namespace App\Tests\Utils;
+
+use Jgauthi\Component\Utils\Text;
+use PHPUnit\Framework\TestCase;
+
+class TextTest extends TestCase
+{
+    public function testUnserialize()
+    {
+        $contentSerialized = 'O:8:"stdClass":81:{s:4:"page";s:16:"selection_places";s:11:"caisse_data";O:8:"stdClass":3:{s:6:"tarifs";s:5:"87241";s:5:"debut";i:1581242400;s:6:"idfilm";s:5:"50376";}s:10:"user_agent";s:76:"Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:72.0) Gecko/20100101 Firefox/72.0";s:11:"remote_addr";s:10:"172.20.0.5";s:6:"erreur";s:0:"";s:9:"vad_ferme";b:0;s:10:"systeme_3d";s:6:"passif";s:3:"nom";s:3:"Doe";s:6:"prenom";s:4:"John";s:5:"email";s:15:"dev@testunit.fr";s:12:"palier_frais";a:1:{i:0;a:2:{s:6:"palier";i:0;s:5:"frais";s:3:"0.5";}}s:12:"token_apiccg";s:805:"eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXUyJ9.eyJ1c2VybmFtZSI6ImRldkBjb3RlY2luZS5mciIsInNpdGVJZCI6MTcxMSwiaWF0IjoiMTU4MDM5MTQzOSJ9.I9veClIVaOmskCMZdI8gVEL0k36kyl39-zHbnyGz7PFUlX5kAMdrvgJ5BZlrmCub4W8rFP8x-q7U8yO17ma4W-aO7T_5JEn69ivIneScTpqgM8zIQR1lb6A_uHdt6OU8ZC1LmEE45JOMy0pd5rTinVo9Bw8G5ixHSyPgXABu_9_846lQtDRbp7Xw3uzq-2UiYOP_UpeXDvQZ78_6Og2z8neiCXoGPdfPJAza3RSU5fAc40XYMe7x9TKIGbLqR8yCEGdsRfRUdmB7Ngxu090X4xGfBSC_cpudgOtlEmsWuW_2rqckrpZvuR0ZcI0-LZNI2Z0l8se3TQVKFyL3c-D4aC_H6zu9k-PmxfomhhOGk5_aD92zbka_tGHdgI2e72bYCkzqMQzeI9fpc-GJwcdLUuN2pHaKwZxsLNeq3gV2SPn3BFid4xFuwR2EFJzpFiKLoqFQVfzP-UhHnuB8fGr40xCMy_NtpzYNn19pamUW5yN9r0s5NGFlAKSrTqa5RHBj1eyF-esJ922LicrKM8hXJp_RVqrpPAAjFxtxsxvKHCjP6-bvrc3-atTY8-iZCPQuhfCX2LcKxdpwi1nyFEItWnYRqD2SAJGL0Hte0mICabPdDbKcyrSW5t8NT0_MOBegIrjc4d8UHLPvLgoOomYKrRwM3wlZlcrEsb3mPMlbYAk";s:20:"compte_client_apiccg";O:8:"stdClass":13:{s:4:"site";O:8:"stdClass":5:{s:2:"id";i:1711;s:4:"name";s:13:"demo-democine";s:4:"host";s:37:"demo-democine.site.tests.localhost.tv";s:6:"parent";N;s:9:"urbanArea";s:0:"";}s:8:"lastname";s:3:"Doe";s:9:"firstname";s:4:"John";s:19:"showtimeStartNotice";b:0;s:18:"movieReleaseNotice";b:0;s:18:"specialEventNotice";b:0;s:5:"cards";a:0:{}s:6:"orders";a:0:{}s:7:"loyalty";b:0;s:10:"userpoints";a:0:{}s:2:"id";i:3985561;s:8:"username";s:15:"dev@testunit.fr";s:5:"email";s:15:"dev@testunit.fr";}s:11:"id_api_user";i:3985561;s:6:"idfilm";i:50376;s:4:"film";O:4:"Film":3:{s:6:"idfilm";i:50376;s:11:"�Film�_data";a:63:{s:6:"idfilm";s:5:"50376";s:12:"numero_ordre";s:5:"47597";s:5:"id_us";s:1:"0";s:6:"idUser";N;s:7:"idGroup";N;s:5:"titre";s:14:"L\'Homme du Sud";s:11:"titre_ascii";s:14:"l\'homme du sud";s:14:"titre_original";s:14:"The Southerner";s:9:"titre_cnc";s:0:"";s:9:"petit_nom";s:14:"L HOMME DU SUD";s:4:"visa";s:0:"";s:6:"sortie";s:10:"2020-02-05";s:9:"sortieabs";s:1:"0";s:15:"sortieoriginale";s:10:"1950-05-30";s:6:"format";s:0:"";s:8:"son_vo_1";s:0:"";s:8:"son_vo_2";s:0:"";s:8:"son_vo_3";s:0:"";s:8:"son_vo_4";s:0:"";s:8:"son_vf_1";s:0:"";s:8:"son_vf_2";s:0:"";s:8:"son_vf_3";s:0:"";s:8:"son_vf_4";s:0:"";s:5:"genre";s:5:"drame";s:12:"interdiction";s:0:"";s:13:"avertissement";s:0:"";s:5:"duree";s:2:"92";s:7:"metrage";s:1:"0";s:12:"type_couleur";s:0:"";s:7:"origine";s:6:"U.S.A.";s:11:"realisateur";s:11:"Jean Renoir";s:11:"interpretes";s:73:"ZACHARY SCOTT, BETTY FIELD, J. CARROL NAISH, BEULAH BONDI, PERCY KILBRIDE";s:6:"resume";s:294:"Sam et Nona Tucker ne veulent plus être journaliers agricoles. Après la récolte d\'automne, ils décident de cultiver leur propre champ de coton. Avec Daisy et Jot, leurs enfants, et la grand-mère, ils s\'installent sur une terre concédée par leur patron, où toutes les désillusions les attendent…";s:12:"distributeur";s:17:"THEATRE DU TEMPLE";s:6:"presse";s:0:"";s:10:"tel_presse";s:0:"";s:10:"fax_presse";s:0:"";s:8:"dt_creat";s:10:"0000-00-00";s:9:"dt_update";s:19:"2019-12-19 11:34:12";s:5:"video";s:16:"47597 vo fa1.mp4";s:3:"web";s:0:"";s:9:"fa_iphone";s:16:"47597 vo fa1.mp4";s:7:"doublon";s:1:"0";s:10:"id_film_2d";s:5:"50376";s:10:"id_film_3d";N;s:16:"allocine_film_id";s:4:"3637";s:16:"MAJDVD_prefa1_vo";s:1:"0";s:16:"MAJDVD_prefa2_vo";s:1:"0";s:16:"MAJDVD_prefa3_vo";s:1:"0";s:13:"MAJDVD_fa1_vo";s:1:"0";s:13:"MAJDVD_fa2_vo";s:1:"0";s:16:"MAJDVD_divers_vo";s:1:"0";s:16:"MAJDVD_prefa1_vf";s:1:"0";s:16:"MAJDVD_prefa2_vf";s:1:"0";s:16:"MAJDVD_prefa3_vf";s:1:"0";s:13:"MAJDVD_fa1_vf";s:1:"0";s:13:"MAJDVD_fa2_vf";s:1:"0";s:16:"MAJDVD_divers_vf";s:1:"0";s:14:"MAJDVD_affiche";s:6:"201951";s:13:"MAJDVD_photos";s:6:"201951";s:8:"nb_copie";s:1:"0";s:6:"hidden";s:1:"0";s:12:"release_date";s:10:"2020-02-05";}s:6:"est_3d";b:1;}s:2:"dt";i:1581242400;s:12:"film_version";s:2:"VF";s:21:"offres_lie_disponible";a:0:{}s:11:"seance_tags";s:224:"<img src="https://static.testunit.fr/img/tags/tag_vf.png" class="tag tag-VF" alt="Film projeté en Version Française" /> <img src="https://static.testunit.fr/img/tags/tag_3D.png" class="tag tag-3D" alt="Film projeté en 3D" />";s:15:"raw_seance_tags";s:8:"TAGVF 3D";s:9:"id_seance";s:11:"17346979309";s:14:"tarifs_complet";a:0:{}s:6:"tarifs";a:1:{i:87241;s:6:"NORMAL";}s:11:"tarifs_prix";a:1:{i:87241;s:1:"6";}s:16:"tarifs_sansfrais";a:1:{i:87241;s:1:"0";}s:12:"tarifs_regle";a:1:{i:87241;s:0:"";}s:14:"tarifs_legende";a:1:{i:87241;s:0:"";}s:16:"tarifs_max_place";a:1:{i:87241;i:9;}s:18:"tarifs_a_justifier";a:1:{i:87241;s:1:"0";}s:5:"salle";s:0:"";s:11:"place_dispo";i:20;s:15:"tarifs_initiaux";a:1:{i:87241;s:6:"NORMAL";}s:22:"tarifs_regles_initiaux";a:1:{i:87241;s:0:"";}s:20:"tarifs_prix_initiaux";a:1:{i:87241;s:1:"6";}s:16:"codepromo_saisie";a:0:{}s:6:"places";a:1:{i:87241;i:1;}s:14:"nb_place_total";i:1;s:19:"nb_place_total_paye";i:1;s:13:"montant_total";d:6.5;s:21:"montant_total_a_payer";d:6.5;s:22:"montant_total_pre_paye";i:0;s:31:"montant_total_pour_calcul_frais";i:6;s:16:"nbplacesansfrais";i:0;s:19:"montant_total_frais";d:0.5;s:10:"type_frais";s:8:"commande";s:16:"annulation_frais";i:0;s:16:"annulation_delai";i:25;s:10:"frais_resa";s:3:"0.5";s:19:"lunettes_3d_montant";b:0;s:21:"montant_remboursement";d:6.5;s:14:"places_cineday";a:0:{}s:16:"places_cartecine";a:0:{}s:18:"recharge_cartecine";a:0:{}s:25:"places_offertes_cartecine";a:0:{}s:25:"recharge_offert_cartecine";a:0:{}s:25:"lunettes_offert_cartecine";a:0:{}s:13:"places_cheque";a:0:{}s:17:"places_cartes_cip";a:0:{}s:8:"lunettes";b:0;s:16:"avec_paiement_cb";b:1;s:21:"avec_paiement_buyster";b:0;s:24:"avec_paiement_masterpass";b:0;s:18:"avec_paybox_system";b:0;s:13:"avec_paiement";b:1;s:13:"date_creation";i:1580391468;s:3:"cle";s:16:"bhmfmwrtqkypwgyl";s:11:"commande_id";s:8:"70699449";s:9:"le_client";s:8:"John Doe";s:13:"choixpaiement";s:2:"cb";s:11:"memorise_cb";b:1;s:21:"paiement_autorisation";O:8:"stdClass":2:{s:6:"erreur";b:0;s:11:"transaction";i:1;}s:18:"transaction_caisse";O:8:"stdClass":3:{s:6:"erreur";b:0;s:17:"ReservationNumber";s:8:"70699449";s:20:"ReservationNumberTxt";s:8:"70699449";}s:17:"ReservationNumber";s:8:"70699449";s:20:"ReservationNumberTxt";s:8:"70699449";s:14:"paiement_debit";O:8:"stdClass":1:{s:6:"erreur";b:0;}s:11:"json_billet";a:22:{s:6:"cinema";s:22:"CinÃ©ma DÃ©mo democine";s:5:"nom12";s:14:"DÃ©mo democine";s:7:"adresse";s:0:"";s:11:"commande_id";s:10:"0070699449";s:3:"cle";s:16:"bhmfmwrtqkypwgyl";s:10:"showtimeId";s:11:"17346979309";s:5:"debut";i:1581242400;s:7:"film_id";i:50376;s:4:"film";s:14:"L\'Homme du Sud";s:5:"duree";s:4:"1h32";s:7:"version";s:2:"VF";s:7:"affiche";s:63:"https://static.testunit.fr/tb/Affiches/320x0/L+HOMME+DU+SUD.JPG";s:5:"logos";a:2:{i:0;s:46:"https://static.testunit.fr/img/tags/tag_vf.png";i:1;s:46:"https://static.testunit.fr/img/tags/tag_3D.png";}s:8:"nb_place";i:1;s:8:"lunettes";i:0;s:7:"montant";s:4:"6.50";s:18:"reservation_numero";s:8:"70699449";s:9:"codebarre";s:73:"https://demo-democine.site.tests.localhost.tv/reserver/CodeBarre/70699449";s:17:"codebarre_legende";s:115:"Attention, le code ci-contre est votre e-rÃ©servation, il est Ã  prÃ©senter au point de contrÃ´le de votre cinÃ©ma.";s:18:"ticket_client_html";s:377:"Commande nÂ°0070699449<br />
+CinÃ©ma DÃ©mo democine<br />
+SÃ©ance du dimanche 9 fÃ©vrier 2020 Ã  11h00<br />
+Film : L\'Homme du Sud<br />
+DurÃ©e : 1h32<br />
+1 rÃ©servation NORMAL soit 6.00 euros <br />
+Frais de gestion : 0.50 euros<br />
+Montant total : 6.50 euros<br />
+Mode de rÃ¨glement : Carte Bleue<br />
+Client : John Doe<br />
+NÂ° de reservation : 70699449<br />
+<br />
+";s:6:"ticket";s:116:"https://demo-democine.site.tests.localhost.tv/reserver/Billet/2020-01/2020-01-30/0070699449.pdf?cle=bhmfmwrtqkypwgyl";s:8:"barcodes";a:1:{i:0;O:8:"stdClass":4:{s:5:"title";s:14:"E-rÃ©servation";s:6:"format";s:6:"qrcode";s:7:"message";s:8:"70699449";s:7:"altText";s:8:"70699449";}}}s:12:"ticketClient";s:295:"Commande n°0070699449
+Cinéma Démo democine
+Séance du dimanche 9 février 2020 à 11h00
+Film : L\'Homme du Sud
+Durée : 1h32
+1 réservation NORMAL soit 6.00 euros
+Frais de gestion : 0.50 euros
+Montant total : 6.50 euros
+Mode de règlement : Carte Bleue
+Client : John Doe
+N° de reservation : 70699449
+
+";s:17:"billet_pdf_simple";s:56:"/home/testunit/billets/2020-01/2020-01-30/0070699449.pdf";s:16:"billet_pdf_multi";b:0;s:16:"ret_envoyer_mail";b:1;}';
+
+        $fail = @unserialize($contentSerialized);
+        $this->assertFalse($fail);
+
+        $content = Text::unserialize($contentSerialized);
+        $this->assertInstanceOf(\stdClass::class, $content);
+
+        $content = (array)$content;
+        $this->assertArrayHasKey('email', $content);
+        $this->assertSame($content['email'], 'dev@testunit.fr');
+    }
+}
