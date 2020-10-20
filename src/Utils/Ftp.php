@@ -11,12 +11,16 @@ class Ftp
     static public function downloadDir($conn, string $localDir, string $ftpDir, int $folderChmod = 0775): void
     {
         if (!ftp_chdir($conn, $ftpDir)) {
-            throw new InvalidArgumentException('Impossible de changer de dossier FTP: '. $ftpDir);
+            throw new InvalidArgumentException(
+                'Impossible de changer de dossier FTP: '.
+                ftp_pwd($conn).DIRECTORY_SEPARATOR.$ftpDir
+            );
         }
 
-        ftp_pasv($conn, true);
         $liste = ftp_rawlist($conn, '.');
+        logit(LOGNAME, "localDir: $localDir, ftpDir: $ftpDir");
         if (empty($liste)) {
+            ftp_chdir($conn, '..');
             return;
         }
 
