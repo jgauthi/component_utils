@@ -22,7 +22,10 @@
   },
   "autoload": {
     "files": [ "src/functions.inc.php" ],
-    "psr-4": { "Jgauthi\\Component\\Utils\\": "src/Utils/" }
+    "psr-4": {
+      "Jgauthi\\Component\\Traits\\": "src/Traits/",
+      "Jgauthi\\Component\\Utils\\": "src/Utils/"
+    }
   },
   "bin": [
     "bin/array2yaml.php",
