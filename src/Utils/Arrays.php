@@ -39,6 +39,31 @@ class Arrays
     }
 
     /**
+     * Convert an array with items [ ['id' => 1, 'quantity' => 2], ... ]
+     * to indexed version [ 1 => ['quantity' => 2], 2 => [...] ]
+     * @param string|null $key if null, take the first field in array
+     */
+    static public function to_indexed_by_key(array $data, ?string $key = null): array
+    {
+        if (empty($data)) {
+            throw new InvalidArgumentException('The data array is empty.');
+        } elseif (empty($key)) {
+            $key = array_key_first($data[ array_key_first($data) ]);
+        } elseif (!array_key_exists($key, $data[ array_key_first($data) ])) {
+            throw new InvalidArgumentException("The key {$key} does not exist in array items.");
+        }
+
+        $newArray = [];
+        foreach ($data as $array) {
+            $keyValue = $array[$key];
+            $newArray[$keyValue] = $array;
+            unset($newArray[$keyValue][$key]);
+        }
+
+        return $newArray;
+    }
+
+    /**
      * Improved implode: Use key + value.
      *
      * @param string $line separator between data
