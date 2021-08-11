@@ -15,7 +15,7 @@ class Date
      * Init a datetime class with several check exception
      * @throws Exception
      */
-    static public function DateTime(string $time, ?DateTimeZone $timezone = null, ?bool $future = null): DateTime
+    static public function new(string $time = 'now', ?DateTimeZone $timezone = null, ?bool $future = null): DateTime
     {
         $date = new DateTime($time, $timezone);
         return self::valideDate($date, $timezone, $future);

@@ -14,7 +14,7 @@ $values = [
 foreach ($values as $value) {
     var_dump("Date: $value");
 
-    $date = Date::DateTime($value);
+    $date = Date::new($value);
     $date->originalFormat = Date::getFormatFromDate($value);
     var_dump($date);
 }
