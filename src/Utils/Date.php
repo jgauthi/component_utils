@@ -37,26 +37,44 @@ class Date
     }
 
     /**
+     * Init a date class from string format (YYYY-MM-DD) or (YYYY-M-D) with several check exception
+     * @throws Exception
+     */
+    static public function createFromString(?string $time, ?DateTimeZone $timezone = null): DateTime
+    {
+        if (empty($time)) {
+            return self::new();
+        } elseif (!preg_match('#^([0-9]{4})(-[0-1]?[0-9])(-[0-3]?[0-9])#', $time)) { // Date US
+            throw new InvalidArgumentException('The date don\'t match with the format: YYYY-MM-DD');
+        }
+
+        return self::createFromFormat($time, 'Y-m-d', $timezone);
+    }
+
+    /**
      * Valide a DateTimeInterface object
-     * @param DateTimeInterface $date
+     * @param DateTimeInterface|false $date new DateTime can return false, this method invalidate this value
      * @param DateTimeZone|null $timezone
      * @param bool|null $future null=no check, false=date must be in past, true=date must be future
      * @return DateTime|DateTimeInterface
      * @throws Exception
      */
-    static public function valideDate(DateTimeInterface $date, ?DateTimeZone $timezone = null, ?bool $future = null): DateTimeInterface
+    static public function valideDate(DateTimeInterface|false $date, ?DateTimeZone $timezone = null, ?bool $future = null): DateTimeInterface
     {
-        $today = new DateTime('now', $timezone);
-
         $error = DateTime::getLastErrors();
         if (!empty($error['warning_count']) && 'The parsed date was invalid' == current($error['warnings'])) {
             throw new InvalidArgumentException( current($error['warnings']) );
         } elseif (!empty($error['error_count'])) {
             throw new Exception( current($error['errors']) );
-        } elseif ($future && $date <= $today) {
-            throw new InvalidArgumentException("The date {$date->format('c')} must be future.");
-        } elseif ($future === false && $date > $today) {
-            throw new InvalidArgumentException("The date {$date->format('c')} must be in the past.");
+        } elseif (!$date instanceof DateTimeInterface) {
+            throw new InvalidArgumentException(__METHOD__.': Invalid Date');
+        } elseif ($future !== null) {
+            $today = new DateTime('now', $timezone);
+            if ($future && $date <= $today) {
+                throw new InvalidArgumentException("The date {$date->format('d/m/Y')} must be future.");
+            } elseif (false === $future && $date > $today) {
+                throw new InvalidArgumentException("The date {$date->format('d/m/Y')} must be in the past.");
+            }
         }
 
         return $date;
@@ -205,7 +223,7 @@ class Date
      * Fournit la différence d'une date interval en minute
      * Usage: applis/mindphp/date_diff.php
      */
-    static public function IntervalInMinutes(DateInterval $interval): int
+    static public function intervalInMinutes(DateInterval $interval): int
     {
         $days = $interval->format('%a');
         $diff_minute = ($days * 24 * 60) + ($interval->h * 60) + $interval->i;
@@ -217,7 +235,7 @@ class Date
     {
         $interval = $start->diff($end);
 
-        return self::IntervalInMinutes($interval);
+        return self::intervalInMinutes($interval);
     }
 
     /**

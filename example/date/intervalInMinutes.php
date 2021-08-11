@@ -9,9 +9,9 @@ $end = new DateTime('2012-07-08 12:45:52');
 // $end = $start->add( new \DateInterval() );
 
 $interval1 = $start->diff($end);
-$interval1->diff_minute = Date::IntervalInMinutes($interval1);
+$interval1->diff_minute = Date::intervalInMinutes($interval1);
 
 $interval2 = $end->diff($start);
-$interval2->diff_minute = Date::IntervalInMinutes($interval2);
+$interval2->diff_minute = Date::intervalInMinutes($interval2);
 
 var_dump($start, $end, $interval1, $interval2);
