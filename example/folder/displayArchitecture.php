@@ -7,11 +7,14 @@ require_once __DIR__.'/../vendor/autoload.php';
 $dir = realpath(__DIR__.'/../'); // Example/
 
 $arch = Folder::getArchitecture($dir);
-$scandir = scandir($dir);
-$glob = glob("$dir/*");
+?>
 
-var_dump(
-    $arch,
-    $scandir,
-    $glob
-);
+<h3>Output Html format:</h3>
+<blockquote>
+    <?=Folder::displayArchitectureHtml($arch)?>
+</blockquote>
+
+<h3>Output Markdown format:</h3>
+<blockquote>
+    <?=nl2br(trim(Folder::displayArchitectureMarkdown($arch)))?>
+</blockquote>

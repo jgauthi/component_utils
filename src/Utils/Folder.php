@@ -30,13 +30,14 @@ class Folder
         return $liste;
     }
 
-    static public function displayArchitecture(iterable $dir_array): string
+    static public function displayArchitectureHtml(iterable $dir_array): string
     {
         $html = '<ul>';
+        $method = __METHOD__;
         foreach ($dir_array as $index => $file) {
             if (is_array($file)) {
                 $html .= '<li class="dir"><strong>'.htmltxt($index).'</strong>';
-                $html .= self::displayArchitecture($file);
+                $html .= $method($file);
             } else {
                 $extension = preg_replace("#.+\.([^$]+)$#", '$1', $file);
                 $html .= '<li class="'.htmltxt($extension).'">'.htmltxt($file);
@@ -47,6 +48,38 @@ class Folder
         $html .= '</ul>';
 
         return $html;
+    }
+
+    static public function displayArchitectureMarkdown(iterable|string $dir_array, array $ignoreFileExtension = [], int $niv = -1): string
+    {
+        if (is_string($dir_array)) {
+            return "* {$dir_array}";
+        }
+
+        $markdown = '';
+        $method = __METHOD__;
+        foreach ($dir_array as $index => $file) {
+            if (is_string($file)) {
+                $fileExtension = pathinfo($file)['extension'];
+                if (in_array($fileExtension, $ignoreFileExtension)) {
+                    continue;
+                }
+            }
+
+            $markdown .= PHP_EOL;
+            if ($niv > 0) {
+                $markdown .= str_repeat("\t", $niv);
+            }
+
+            if (is_array($file)) {
+                $markdown .= (($niv == -1) ? PHP_EOL."## $index" : "* **$index**");
+                $markdown .= $method($file, $ignoreFileExtension, $niv + 1);
+            } else {
+                $markdown .= "* $file";
+            }
+        }
+
+        return $markdown;
     }
 
     /**
