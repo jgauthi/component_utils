@@ -1,6 +1,7 @@
 <?php
 namespace Jgauthi\Component\Utils;
 
+use Exception;
 use InvalidArgumentException;
 
 class Http
@@ -60,6 +61,8 @@ class Http
             throw new InvalidArgumentException('Erreur détecté durant l\'execution du script, fin de parcours');
         } elseif (!is_readable($file)) {
             throw new InvalidArgumentException("The file '{$file}' is not exists");
+        } elseif (!($streamFile = fopen($file, 'rb'))) {
+            throw new Exception('Error during open file: '. $file);
         }
 
         // Conf php
@@ -80,7 +83,7 @@ class Http
         header('Expires: 0');
         header('Cache-Control: no-cache, must-revalidate');
         header('Pragma: no-cache');
-        stream_copy_to_stream(fopen($file, 'rb'), fopen('php://output', 'wb'));
+        stream_copy_to_stream($streamFile, fopen('php://output', 'wb'));
 
         exit();
     }
