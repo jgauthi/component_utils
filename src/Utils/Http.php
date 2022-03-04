@@ -55,13 +55,13 @@ class Http
      * Example: applis/symfony/components/http-foundation/10-SendFile.php
      * @throws InvalidArgumentException
      */
-    static public function download_file(string $file): void
+    static public function download_file(string $file, int $fopenTimeout = 5): void
     {
         if (headers_sent()) {
             throw new InvalidArgumentException('Erreur détecté durant l\'execution du script, fin de parcours');
         } elseif (!is_readable($file)) {
             throw new InvalidArgumentException("The file '{$file}' is not exists");
-        } elseif (!($streamFile = fopen($file, 'rb'))) {
+        } elseif ( !($streamFile = fopen($file, 'rb', false, stream_context_create(['http' => ['timeout' => $fopenTimeout]]))) ) {
             throw new Exception('Error during open file: '. $file);
         }
 
