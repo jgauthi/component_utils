@@ -2,6 +2,7 @@
 namespace Jgauthi\Component\Utils;
 
 use Exception;
+use Nette\Utils\FileSystem as NetteFileSystem;
 
 class Folder
 {
@@ -84,9 +85,12 @@ class Folder
 
     /**
      * @throws Exception
+     * @deprecated
      */
     static public function delete(string $dir): bool
     {
+        trigger_error('Method ' . __METHOD__ . ' is deprecated, you should use FileSystem::delete (nette/utils)', E_USER_DEPRECATED);
+
         if (!is_dir($dir)) {
             throw new Exception("The folder {$dir} is invalid.");
         }

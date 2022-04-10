@@ -5,7 +5,7 @@ use Jgauthi\Component\Utils\Json;
 require_once __DIR__.'/../vendor/autoload.php';
 
 // Return exception if error
-$data = Json::decode(file_get_contents(__DIR__.'/../asset/clients.json'), true);
+$data = Json::decode(trim($_POST['var']), Json::OPTION_FORCE_ARRAY);
 
 // Output a response like an API (json format)
 Json::response($data);

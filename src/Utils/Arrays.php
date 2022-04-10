@@ -1,19 +1,24 @@
 <?php
 namespace Jgauthi\Component\Utils;
 
-use InvalidArgumentException;
+use Nette\InvalidArgumentException;
+use Nette\Utils\Arrays as NetteArrays;
 use SimpleXMLElement;
 
-class Arrays
+// Additionnals methods with https://doc.nette.org/en/utils/arrays
+class Arrays extends NetteArrays
 {
     /**
      * Combine multiple arrays to one.
      *
      * @param array $args
-     * @return null|array
+     * @return array|null
+     * @deprecated
      */
     static public function combine(...$args): ?array
     {
+        trigger_error('Method ' . __METHOD__ . ' is deprecated, you should use mergeTree (nette/utils)', E_USER_DEPRECATED);
+
         if (empty($args)) {
             return null;
         } elseif (1 === count($args) && !empty($args[0])) {
@@ -238,8 +243,12 @@ class Arrays
      *
      * @return string HTML Table
      */
-    static public function to_html_table_title_filter_col(array $data, ?string $title_table, array $cols_display, string $encode = 'UTF-8'): string
-    {
+    static public function to_html_table_title_filter_col(
+        array $data,
+        ?string $title_table,
+        array $cols_display,
+        string $encode = 'UTF-8',
+    ): string {
         if (empty($data) || !is_array($data)) {
             throw new InvalidArgumentException('Argument data is empty or is not an array.');
         }
@@ -351,7 +360,6 @@ class Arrays
      * Return an array with all values from a array with mutliples subvalues.
      *
      * @param array|object $array
-     *
      * @return array
      */
     static public function values_recursive($array): array

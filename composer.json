@@ -13,6 +13,7 @@
     "ext-libxml": "*",
     "ext-json": "*",
     "ext-simplexml": "*",
+    "nette/utils": "*",
     "symfony/http-client": "*",
     "symfony/yaml": "*",
     "ext-zip": "*"

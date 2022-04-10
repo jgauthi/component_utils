@@ -1,13 +1,19 @@
 <?php
 namespace Jgauthi\Component\Utils;
 
-class Text
+use Nette\Utils\Strings as NetteString;
+
+// Additionnals methods with https://doc.nette.org/en/utils/strings
+class Strings extends NetteString
 {
     /**
      * Return first chars in string.
+     * @deprecated
      */
     static public function resume(?string $chaine, int $max = 50, string $caractere = '…', string $encoding = 'UTF-8'): ?string
     {
+        trigger_error('Method ' . __METHOD__ . ' is deprecated, you should use truncate (nette/utils)', E_USER_DEPRECATED);
+
         if (empty($chaine)) {
             return null;
         }
@@ -65,9 +71,12 @@ class Text
 
     /**
      * Uppercase each first letter words (Multibyte (UTF-8) Function)
+     * @deprecated
      */
     static public function mb_ucfirst(string $str, string $encoding = 'UTF-8', bool $lower_str_end = false): string
     {
+        trigger_error('Method ' . __METHOD__ . ' is deprecated, you should use firstUpper (nette/utils)', E_USER_DEPRECATED);
+
         $first_letter = mb_strtoupper(mb_substr($str, 0, 1, $encoding), $encoding);
         if ($lower_str_end) {
             $str_end = mb_strtolower(mb_substr($str, 1, mb_strlen($str, $encoding), $encoding), $encoding);
@@ -119,18 +128,19 @@ class Text
         return $string;
     }
 
-    /** A TESTER
+    /**
      * Determine si une chaine est en UTF-8
      * fonction cree par le W3C.
      *
      * @see http://w3.org/International/questions/qa-forms-utf-8.html
-     *
      * @param string $string chaine de caractere a analyser
-     *
      * @return bool vrai si UTF-8, faux sinon
+     * @deprecated
      */
     static public function isUtf8(string $string): bool
     {
+        trigger_error('Method ' . __METHOD__ . ' is deprecated, you should use checkEncoding (nette/utils)', E_USER_DEPRECATED);
+
         return preg_match('%^(?:
 			[\x09\x0A\x0D\x20-\x7E] # ASCII
 			| [\xC2-\xDF][\x80-\xBF] # non-overlong 2-byte
@@ -145,7 +155,7 @@ class Text
 
     static public function forceUtf8(string $text): string
     {
-        if (!mb_detect_encoding($text, 'UTF-8', true)) {
+        if (!NetteString::checkEncoding($text)) {
             $text = utf8_encode($text);
         }
 

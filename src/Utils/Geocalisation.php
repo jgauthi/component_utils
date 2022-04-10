@@ -1,7 +1,7 @@
 <?php
 namespace Jgauthi\Component\Utils;
 
-use InvalidArgumentException;
+use Nette\InvalidArgumentException;
 
 class Geocalisation
 {

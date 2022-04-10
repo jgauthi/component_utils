@@ -1,53 +1,45 @@
 <?php
 namespace Jgauthi\Component\Utils;
 
-use InvalidArgumentException;
+use Nette\InvalidArgumentException;
+use Nette\Utils\{Json as NetteJson, JsonException};
 
+// Use NetteJson for encode/deco: https://doc.nette.org/en/utils/json
 class Json
 {
+    public const OPTION_ESCAPE_UNICODE = NetteJson::ESCAPE_UNICODE;
+    public const OPTION_FORCE_ARRAY = NetteJson::JSON_OBJECT_AS_ARRAY;
+    public const OPTION_PRETTY = NetteJson::PRETTY;
+
     /**
-     * Wrapper for JSON encoding that throws when an error occurs.
+     * Converts value to JSON format. The flag can be Json::PRETTY, which formats JSON for easier reading and clarity,
+     * and Json::ESCAPE_UNICODE for ASCII output.
      *
      * @param mixed $value   The value being encoded
-     * @param int    $options JSON encode option bitmask
-     * @param int    $depth   Set the maximum depth. Must be greater than zero.
+     * @param int   $options The flag can be Json::PRETTY, which formats JSON for easier reading and clarity,
+     * and Json::ESCAPE_UNICODE for ASCII output
      *
      * @return string
-     * @throws InvalidArgumentException if the JSON cannot be encoded.
-     * @link http://www.php.net/manual/en/function.json-encode.php
+     * @throws JsonException if the JSON cannot be encoded.
+     * @link https://doc.nette.org/en/utils/json#toc-encode
      */
-    static public function encode($value, int $options = 0, int $depth = 512): string
+    static public function encode($value, int $options = 0): string
     {
-        $json = json_encode($value, $options, $depth);
-        if (json_last_error() !== JSON_ERROR_NONE) {
-            throw new InvalidArgumentException('[Json Encode] '. json_last_error_msg() );
-        }
-
-        return $json;
+        return NetteJson::encode($value, $options);
     }
 
     /**
-     * Wrapper for json_decode that throws when an error occurs.
+     * Parses JSON to PHP value.
      *
-     * @param string $jsonContent    JSON data to parse
-     * @param bool $assoc     When true, returned objects will be converted
-     *                        into associative arrays.
-     * @param int    $depth   User specified recursion depth.
-     * @param int    $options Bitmask of JSON decode options.
-     *
+     * @param string $jsonContent  JSON data to parse
+     * @param int    $options      The flag can be Json::FORCE_ARRAY, which forces an array instead of an object as the return value.
      * @return mixed
-     * @throws InvalidArgumentException if the JSON cannot be decoded.
-     * @link http://www.php.net/manual/en/function.json-decode.php
+     * @throws JsonException if the JSON cannot be decoded.
+     * @link https://doc.nette.org/en/utils/json#toc-decode
      */
-    static public function decode(string $jsonContent, bool $assoc = false, int $depth = 512, int $options = 0)
+    static public function decode(string $jsonContent, int $options = 0)
     {
-        $jsonContent = json_decode($jsonContent, $assoc, $depth, $options);
-
-        if (json_last_error() !== JSON_ERROR_NONE) {
-            throw new InvalidArgumentException('[Json Decode] '. json_last_error_msg() );
-        }
-
-        return $jsonContent;
+        return NetteJson::decode($jsonContent, $options);
     }
 
     /**
@@ -55,9 +47,10 @@ class Json
      * Usage for Legacy Code, use instead if possible: Symfony\Component\HttpFoundation\JsonResponse
      * @param array $data
      * @param int $httpStatus
+     * @param int $jsonOptions
      * @return bool
      */
-    static public function response(array $data, int $httpStatus = 200): bool
+    static public function response(array $data, int $httpStatus = 200, int $jsonOptions = 0): bool
     {
         if (headers_sent()) {
             return false;
@@ -66,7 +59,7 @@ class Json
         header('content-type: application/json');
         http_response_code(intval($httpStatus));
 
-        echo self::encode($data, JSON_UNESCAPED_UNICODE);
+        echo self::encode($data, $jsonOptions);
         return true;
     }
 

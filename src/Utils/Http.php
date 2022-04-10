@@ -2,7 +2,7 @@
 namespace Jgauthi\Component\Utils;
 
 use Exception;
-use InvalidArgumentException;
+use Nette\InvalidArgumentException;
 
 class Http
 {

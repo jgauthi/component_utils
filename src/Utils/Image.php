@@ -2,12 +2,19 @@
 namespace Jgauthi\Component\Utils;
 
 use Exception;
-use InvalidArgumentException;
+use Nette\InvalidArgumentException;
+use Nette\Utils\Image as NetteImage;
 
-class Image
+// Additionnals methods with https://doc.nette.org/en/utils/images
+class Image extends NetteImage
 {
-    static public function cssSize(string $image, int $max_width = 400, int $max_height = 400, ?string $align = null, bool $strict = false): string
-    {
+    static public function cssSize(
+        string $image,
+        int $max_width = 400,
+        int $max_height = 400,
+        ?string $align = null,
+        bool $strict = false,
+    ): string {
         if (!is_readable($image)) {
             throw new InvalidArgumentException("The image file {$image} does not exists or not readable.");
         }
@@ -97,9 +104,12 @@ class Image
     /**
      * @return resource
      * @throws Exception
+     * @deprecated
      */
     static public function createFromBMP(string $filename)
     {
+        trigger_error('Method ' . __METHOD__ . ' is deprecated, you should use fromFile (nette/utils) with bmp extension', E_USER_DEPRECATED);
+
         //Ouverture du fichier en mode binaire
         if (!$f1 = fopen($filename, 'r')) {
             throw new InvalidArgumentException("The image {$filename} does not exists or not readable.");

@@ -1,5 +1,5 @@
 # Component Utilities
-My PHP functions and several utility methods of different types.
+My PHP functions and several utility methods of different types combined with the [nette/utils](https://doc.nette.org/en/utils) library. Some methods have been [archived](https://github.com/jgauthi/component_utils/tree/v2.1) and are no longer used since the usage of nette/utils.
 
 ## Prerequisite
 

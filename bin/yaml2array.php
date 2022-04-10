@@ -36,5 +36,5 @@ try {
     }
 
 } catch (Exception $exception) {
-    die($exception->getMessage()."\n");
+    die($exception->getMessage().PHP_EOLPHP_EOL);
 }

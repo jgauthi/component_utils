@@ -29,5 +29,5 @@ try {
 
     readfile($export);
 } catch (Exception $e) {
-    echo 'Exception: ',  $e->getMessage(), "\n";
+    echo 'Exception: ',  $e->getMessage(), PHP_EOL;
 }

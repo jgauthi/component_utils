@@ -13,7 +13,7 @@
 namespace Jgauthi\Component\Utils;
 
 use Exception;
-use InvalidArgumentException;
+use Nette\InvalidArgumentException;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class Youtube

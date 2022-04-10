@@ -7,32 +7,19 @@ use DateTime;
 use DateTimeInterface;
 use DateTimeZone;
 use Exception;
-use InvalidArgumentException;
+use Nette\InvalidArgumentException;
+use Nette\Utils\DateTime as NetteDateTime;
 
-class Date
+// Additionnals methods with https://doc.nette.org/en/utils/datetime
+class Date extends NetteDateTime
 {
     /**
      * Init a datetime class with several check exception
      * @throws Exception
      */
-    static public function new(string $time = 'now', ?DateTimeZone $timezone = null, ?bool $future = null): DateTime
+    static public function new(string $time = 'now', ?DateTimeZone $timezone = null, ?bool $future = null): static
     {
-        $date = new DateTime($time, $timezone);
-        return self::valideDate($date, $timezone, $future);
-    }
-
-    /**
-     * Init a datetime class from format with several check exception
-     * @param string $time
-     * @param string $format
-     * @param DateTimeZone|null $timezone
-     * @param bool|null $future null=no check, false=date must be in past, true=date must be future
-     * @return DateTime
-     * @throws Exception
-     */
-    static public function createFromFormat(string $time, string $format = 'Y-m-d', ?DateTimeZone $timezone = null, ?bool $future = null): DateTime
-    {
-        $date = DateTime::createFromFormat($format, $time, $timezone);
+        $date = new static($time, $timezone);
         return self::valideDate($date, $timezone, $future);
     }
 
@@ -40,7 +27,7 @@ class Date
      * Init a date class from string format (YYYY-MM-DD) or (YYYY-M-D) with several check exception
      * @throws Exception
      */
-    static public function createFromString(?string $time, ?DateTimeZone $timezone = null): DateTime
+    static public function createFromString(?string $time, ?DateTimeZone $timezone = null): static
     {
         if (empty($time)) {
             return self::new();
@@ -48,18 +35,18 @@ class Date
             throw new InvalidArgumentException('The date don\'t match with the format: YYYY-MM-DD');
         }
 
-        return self::createFromFormat($time, 'Y-m-d', $timezone);
+        return self::createFromFormat('Y-m-d', $time, $timezone);
     }
 
     /**
      * Valide a DateTimeInterface object
-     * @param DateTimeInterface|false $date new DateTime can return false, this method invalidate this value
+     * @param DateTimeInterface|false $date new static can return false, this method invalidate this value
      * @param DateTimeZone|null $timezone
      * @param bool|null $future null=no check, false=date must be in past, true=date must be future
      * @return DateTime|DateTimeInterface
      * @throws Exception
      */
-    static public function valideDate(DateTimeInterface|false $date, ?DateTimeZone $timezone = null, ?bool $future = null): DateTimeInterface
+    static public function valideDate(DateTimeInterface|false $date, ?DateTimeZone $timezone = null, ?bool $future = null): static
     {
         $error = DateTime::getLastErrors();
         if (!empty($error['warning_count']) && 'The parsed date was invalid' == current($error['warnings'])) {
@@ -69,7 +56,7 @@ class Date
         } elseif (!$date instanceof DateTimeInterface) {
             throw new InvalidArgumentException(__METHOD__.': Invalid Date');
         } elseif ($future !== null) {
-            $today = new DateTime('now', $timezone);
+            $today = new static('now', $timezone);
             if ($future && $date <= $today) {
                 throw new InvalidArgumentException("The date {$date->format('d/m/Y')} must be future.");
             } elseif (false === $future && $date > $today) {

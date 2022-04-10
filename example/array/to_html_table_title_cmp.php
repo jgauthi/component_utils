@@ -8,11 +8,10 @@ $array1 = ['blue' => 1, 'red' => 2, 'green' => 3, 'purple' => 4];
 $array2 = ['green' => 5, 'blue' => 6, 'yellow' => 7, 'cyan' => 8];
 $array3 = ['green' => 5, 'blue' => 6, 'red' => 7, 'purple' => 8];
 
-$data = Arrays::combine([
-    'product 3' => $array3,
-    'product 1' => $array1,
-    'product 2' => $array2,
-]);
+$data = Arrays::mergeTree(
+    ['product 3' => $array3, 'product 1' => $array1],
+    ['product 2' => $array2]
+);
 
 $table = Arrays::to_html_table_title_cmp($data, 'Compare multiple array');
 

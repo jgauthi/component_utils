@@ -1,7 +1,10 @@
 <?php
 namespace Jgauthi\Component\Utils;
 
-class Html
+use Nette\Utils\Html as NetteHtml;
+
+// Additionnals methods with https://doc.nette.org/en/utils/html-elements
+class Html extends NetteHtml
 {
     static public function strip_body(string $html): string
     {
