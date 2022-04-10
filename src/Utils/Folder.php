@@ -83,34 +83,6 @@ class Folder
         return $markdown;
     }
 
-    /**
-     * @throws Exception
-     * @deprecated
-     */
-    static public function delete(string $dir): bool
-    {
-        trigger_error('Method ' . __METHOD__ . ' is deprecated, you should use FileSystem::delete (nette/utils)', E_USER_DEPRECATED);
-
-        if (!is_dir($dir)) {
-            throw new Exception("The folder {$dir} is invalid.");
-        }
-
-        $objects = scandir($dir);
-        foreach ($objects as $object) {
-            if ('.' === $object || '..' === $object) {
-                continue;
-            }
-
-            if ('dir' === filetype($dir.DIRECTORY_SEPARATOR.$object)) {
-                self::delete($dir.DIRECTORY_SEPARATOR.$object);
-            } else {
-                unlink($dir.DIRECTORY_SEPARATOR.$object);
-            }
-        }
-
-        reset($objects);
-        rmdir($dir);
-
-        return !is_dir($dir);
-    }
+    // [Method deleted] Use firstUpper FileSystem::delete (nette/utils)
+    // static public function delete(string $dir): bool
 }

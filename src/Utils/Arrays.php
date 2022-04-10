@@ -8,40 +8,8 @@ use SimpleXMLElement;
 // Additionnals methods with https://doc.nette.org/en/utils/arrays
 class Arrays extends NetteArrays
 {
-    /**
-     * Combine multiple arrays to one.
-     *
-     * @param array $args
-     * @return array|null
-     * @deprecated
-     */
-    static public function combine(...$args): ?array
-    {
-        trigger_error('Method ' . __METHOD__ . ' is deprecated, you should use mergeTree (nette/utils)', E_USER_DEPRECATED);
-
-        if (empty($args)) {
-            return null;
-        } elseif (1 === count($args) && !empty($args[0])) {
-            $args = $args[0];
-        }
-
-        $args_keys = array_keys($args);
-        sort($args_keys);
-        $data = [];
-
-        foreach ($args_keys as $product) {
-            foreach ($args[$product] as $col_name => $col_value) {
-                if (!isset($data[$col_name])) {
-                    $data[$col_name] = array_fill_keys($args_keys, null);
-                }
-
-                $data[$col_name][$product] = $col_value;
-            }
-        }
-        ksort($data);
-
-        return $data;
-    }
+    // [Method deleted] Use firstUpper mergeTree (nette/utils)
+    // static public function combine(...$args): ?array
 
     /**
      * Convert an array with items [ ['id' => 1, 'quantity' => 2], ... ]

@@ -6,30 +6,8 @@ use Nette\Utils\Strings as NetteString;
 // Additionnals methods with https://doc.nette.org/en/utils/strings
 class Strings extends NetteString
 {
-    /**
-     * Return first chars in string.
-     * @deprecated
-     */
-    static public function resume(?string $chaine, int $max = 50, string $caractere = '…', string $encoding = 'UTF-8'): ?string
-    {
-        trigger_error('Method ' . __METHOD__ . ' is deprecated, you should use truncate (nette/utils)', E_USER_DEPRECATED);
-
-        if (empty($chaine)) {
-            return null;
-        }
-
-        if (mb_strlen($chaine) >= $max) {
-            $chaine = mb_substr($chaine, 0, ($max - 3), $encoding);
-            $espace = mb_strrpos($chaine, ' ', 0, $encoding);
-            if ($espace) {
-                $chaine = mb_substr($chaine, 0, $espace, $encoding);
-            }
-            $chaine .= $caractere; // Par défaut ajoute: ...
-        }
-
-        return $chaine;
-    }
-
+    // [Method deleted] Use truncate instead (nette/utils)
+    // static public function resume(?string $chaine, int $max = 50, string $caractere = '…', string $encoding = 'UTF-8'): ?string
 
     /**
      * Effectue la césure d'une chaîne (compatible UTF-8)
@@ -69,25 +47,8 @@ class Strings extends NetteString
         return implode($break, $lines);
     }
 
-    /**
-     * Uppercase each first letter words (Multibyte (UTF-8) Function)
-     * @deprecated
-     */
-    static public function mb_ucfirst(string $str, string $encoding = 'UTF-8', bool $lower_str_end = false): string
-    {
-        trigger_error('Method ' . __METHOD__ . ' is deprecated, you should use firstUpper (nette/utils)', E_USER_DEPRECATED);
-
-        $first_letter = mb_strtoupper(mb_substr($str, 0, 1, $encoding), $encoding);
-        if ($lower_str_end) {
-            $str_end = mb_strtolower(mb_substr($str, 1, mb_strlen($str, $encoding), $encoding), $encoding);
-        } else {
-            $str_end = mb_substr($str, 1, mb_strlen($str, $encoding), $encoding);
-        }
-
-        $str = $first_letter.$str_end;
-
-        return $str;
-    }
+    // [Method deleted] Use firstUpper instead (nette/utils)
+    // static public function mb_ucfirst(string $str, string $encoding = 'UTF-8', bool $lower_str_end = false): string
 
     /**
      * Uppercase each first letter words (Multibyte (UTF-8) Function)
@@ -128,30 +89,8 @@ class Strings extends NetteString
         return $string;
     }
 
-    /**
-     * Determine si une chaine est en UTF-8
-     * fonction cree par le W3C.
-     *
-     * @see http://w3.org/International/questions/qa-forms-utf-8.html
-     * @param string $string chaine de caractere a analyser
-     * @return bool vrai si UTF-8, faux sinon
-     * @deprecated
-     */
-    static public function isUtf8(string $string): bool
-    {
-        trigger_error('Method ' . __METHOD__ . ' is deprecated, you should use checkEncoding (nette/utils)', E_USER_DEPRECATED);
-
-        return preg_match('%^(?:
-			[\x09\x0A\x0D\x20-\x7E] # ASCII
-			| [\xC2-\xDF][\x80-\xBF] # non-overlong 2-byte
-			| \xE0[\xA0-\xBF][\x80-\xBF] # excluding overlongs
-			| [\xE1-\xEC\xEE\xEF][\x80-\xBF]{2} # straight 3-byte
-			| \xED[\x80-\x9F][\x80-\xBF] # excluding surrogates
-			| \xF0[\x90-\xBF][\x80-\xBF]{2} # planes 1-3
-			| [\xF1-\xF3][\x80-\xBF]{3} # planes 4-15
-			| \xF4[\x80-\x8F][\x80-\xBF]{2} # plane 16
-			)*$%xs', $string);
-    }
+    // [Method deleted] Use firstUpper checkEncoding (nette/utils)
+    // static public function isUtf8(string $string): bool
 
     static public function forceUtf8(string $text): string
     {
