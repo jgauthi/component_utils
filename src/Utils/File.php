@@ -2,6 +2,7 @@
 namespace Jgauthi\Component\Utils;
 
 use Exception;
+use Nette\Utils\FileSystem;
 
 class File
 {
@@ -93,5 +94,20 @@ class File
         $filename = preg_replace(['#^_?#', '#_?$#'], '', $filename);
 
         return $filename;
+    }
+
+    /**
+     * Check if file exist, return false in case if file exist but have 0 octet (the file will be deleted)
+     */
+    static public function file_exists_not_empty(string $filepath): bool
+    {
+        if (!file_exists($filepath)) {
+            return false;
+        } elseif (filesize($filepath) == 0) {
+            FileSystem::delete($filepath);
+            return false;
+        }
+
+        return true;
     }
 }
