@@ -87,8 +87,12 @@ function getFloatFromString(string $str): float
 //-------------------------------------------------
 // Fonction gestion TEXTE
 //-------------------------------------------------
-function htmltxt(?string $txt, string $charset = 'UTF-8'): string
+function htmltxt(?string $txt, string $charset = 'UTF-8'): ?string
 {
+    if (is_null($txt)) {
+        return null;
+    }
+
     return htmlentities($txt, ENT_QUOTES, $charset);
 }
 
