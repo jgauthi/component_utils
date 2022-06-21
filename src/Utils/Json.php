@@ -8,7 +8,7 @@ use Nette\Utils\{Json as NetteJson, JsonException};
 class Json
 {
     public const OPTION_ESCAPE_UNICODE = NetteJson::ESCAPE_UNICODE;
-    public const OPTION_FORCE_ARRAY = NetteJson::JSON_OBJECT_AS_ARRAY;
+    public const OPTION_FORCE_ARRAY = NetteJson::FORCE_ARRAY;
     public const OPTION_PRETTY = NetteJson::PRETTY;
 
     /**
