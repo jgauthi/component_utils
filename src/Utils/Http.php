@@ -51,8 +51,7 @@ class Http
 
     /**
      * Force download file.
-     * Usage for Legacy Code, use instead if possible: Symfony\Component\HttpFoundation\{HeaderUtils, Response}
-     * Example: applis/symfony/components/http-foundation/10-SendFile.php
+     * Usage for Legacy Code, use instead if possible: UtilsSymfony\HttpSf::downloadFile
      * @throws InvalidArgumentException
      */
     static public function download_file(string $file, int $fopenTimeout = 5): void
