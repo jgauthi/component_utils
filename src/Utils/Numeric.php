@@ -23,4 +23,17 @@ class Numeric
     {
         return self::number_format($number, $decimal, ',', ' ');
     }
+
+    static public function random_bool(int $chanceToProcTrue = 50): bool
+    {
+        try {
+            if ($chanceToProcTrue < 0 || $chanceToProcTrue > 100) {
+                $chanceToProcTrue = 50;
+            }
+            return (random_int(0, 100) > (100 - $chanceToProcTrue));
+
+        } catch (\Exception) {
+            return false;
+        }
+    }
 }

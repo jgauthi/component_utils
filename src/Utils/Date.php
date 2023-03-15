@@ -29,13 +29,21 @@ class Date extends NetteDateTime
      */
     static public function createFromString(?string $time, ?DateTimeZone $timezone = null): static
     {
+        $format = 'Y-m-d';
+
         if (empty($time)) {
             return self::new();
-        } elseif (!preg_match('#^([0-9]{4})(-[0-1]?[0-9])(-[0-3]?[0-9])#', $time)) { // Date US
+        } elseif (!preg_match('#^([0-9]{4})(-[0-1]?[0-9])(-[0-3]?[0-9])( ([0-2]?[0-9])(:[0-5]?[0-9])(:[0-5]?[0-9]))?#', $time, $extract)) { // Date US
             throw new InvalidArgumentException('The date don\'t match with the format: YYYY-MM-DD');
         }
 
-        return self::createFromFormat('Y-m-d', $time, $timezone);
+        $format = (!empty($extract[4]) ? 'Y-m-d H:i:s' : 'Y-m-d');
+        $date = self::createFromFormat($format, $time, $timezone);
+        if ($format === 'Y-m-d') {
+            $date->setTime(0, 0);
+        }
+
+        return $date;
     }
 
     /**
