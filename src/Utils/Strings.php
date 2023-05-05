@@ -89,17 +89,27 @@ class Strings extends NetteString
         return $string;
     }
 
-    // [Method deleted] Use firstUpper checkEncoding (nette/utils)
-    // static public function isUtf8(string $string): bool
+    /**
+     * php function utf8_encode deprecated since php8.2, replaced with mbstring function
+     * https://php.watch/versions/8.2/utf8_encode-utf8_decode-deprecated#utf8_encode-iso8859-mbstring
+     */
+    static public function utf8_decode(string $text, string $to_encoding = 'ISO-8859-1'): string
+    {
+        return mb_convert_encoding($text, $to_encoding, 'UTF-8');
+    }
+
+    static public function utf8_encode(string $text): string
+    {
+        return mb_convert_encoding($text, 'UTF-8', 'ISO-8859-1');
+    }
 
     static public function forceUtf8(string $text): string
     {
-        if (!NetteString::checkEncoding($text)) {
-            $text = utf8_encode($text);
-        }
-
-        return $text;
+        return mb_convert_encoding($text, 'UTF-8', mb_list_encodings());
     }
+
+    // [Method deleted] Use firstUpper checkEncoding (nette/utils)
+    // static public function isUtf8(string $string): bool
 
     /**
      * Fix unserialize (Result conflict with ISO and Accents)
