@@ -75,6 +75,21 @@ class Date extends NetteDateTime
         return $date;
     }
 
+    /**
+     * Date export to string with localisation Day / Month
+     * @param string $pattern Some patterns from php.net/manual/fr/datetime.format.php
+     */
+    static public function export(DateTimeInterface $dateTime, string $pattern, string $localisation = 'fr_FR'): string
+    {
+        $pattern = str_replace(
+            ['l', 'd', 'm', 'M', 'Y', 'H', '\h', 'i', 's', 'P', 'e'],
+            ['EEEE', 'dd', 'LL', 'LLLL', 'YYYY', 'HH', "'h'", 'mm', 'ss', 'OOOO', 'VV'],
+            $pattern
+        );
+
+        return datefmt_format(datefmt_create($localisation, pattern: $pattern), $dateTime);
+    }
+
     /* // Difference ENTRE $date_debut = '2009-08' ET $date_fin = '2010-04';
         return array
         (
