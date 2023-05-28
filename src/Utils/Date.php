@@ -9,6 +9,7 @@ use DateTimeZone;
 use Exception;
 use Nette\InvalidArgumentException;
 use Nette\Utils\DateTime as NetteDateTime;
+use PHP_CodeSniffer\Tests\Core\File\testFECNNamespacedClass;
 
 // Additionnals methods with https://doc.nette.org/en/utils/datetime
 class Date extends NetteDateTime
@@ -79,7 +80,7 @@ class Date extends NetteDateTime
      * Date export to string with localisation Day / Month
      * @param string $pattern Some patterns from php.net/manual/fr/datetime.format.php
      */
-    static public function export(DateTimeInterface $dateTime, string $pattern, string $localisation = 'fr_FR'): string
+    static public function translate(DateTimeInterface $dateTime, string $pattern, string $localisation = 'fr_FR'): string
     {
         $pattern = str_replace(
             ['l', 'd', 'm', 'M', 'Y', 'H', '\h', 'i', 's', 'P', 'e'],
@@ -88,6 +89,11 @@ class Date extends NetteDateTime
         );
 
         return datefmt_format(datefmt_create($localisation, pattern: $pattern), $dateTime);
+    }
+
+    public function export(string $pattern, string $localisation = 'fr_FR'): string
+    {
+        return self::translate($this, $pattern, $localisation);
     }
 
     /* // Difference ENTRE $date_debut = '2009-08' ET $date_fin = '2010-04';
