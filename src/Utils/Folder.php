@@ -61,8 +61,8 @@ class Folder
         $method = __METHOD__;
         foreach ($dir_array as $index => $file) {
             if (is_string($file)) {
-                $fileExtension = pathinfo($file)['extension'];
-                if (in_array($fileExtension, $ignoreFileExtension)) {
+                $fileInfo = pathinfo($file);
+                if (!empty($fileInfo['extension']) && in_array($fileInfo['extension'], $ignoreFileExtension)) {
                     continue;
                 }
             }
