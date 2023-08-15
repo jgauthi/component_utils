@@ -23,7 +23,7 @@ class Json
      * @throws JsonException if the JSON cannot be encoded.
      * @link https://doc.nette.org/en/utils/json#toc-encode
      */
-    static public function encode($value, int $options = 0): string
+    static public function encode(mixed $value, int $options = 0): string
     {
         return NetteJson::encode($value, $options);
     }

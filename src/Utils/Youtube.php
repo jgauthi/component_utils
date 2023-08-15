@@ -52,8 +52,12 @@ class Youtube
      * @throws \Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
      * @throws Exception
      */
-    static public function getInfo(string $apikey, HttpClientInterface $httpClient, string $videoId, bool $additionnalInfo = false): array
-    {
+    static public function getInfo(
+        string $apikey,
+        HttpClientInterface $httpClient,
+        string $videoId,
+        bool $additionnalInfo = false,
+    ): array {
         if (empty($apikey)) {
             throw new InvalidArgumentException('Google apikey not defined or empty');
         }

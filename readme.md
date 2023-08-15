@@ -3,7 +3,7 @@ My PHP functions and several utility methods of different types combined with th
 
 ## Prerequisite
 
-* PHP 5.6+ (v1) or 7.4 (v2)
+* PHP 5.6+ (v1) or 7.4 (v2), or 8.2 (v2.5+)
 
 ## Install
 Edit your [composer.json](https://getcomposer.org) (launch `composer update` after edit):

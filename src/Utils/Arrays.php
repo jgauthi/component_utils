@@ -98,7 +98,7 @@ class Arrays extends NetteArrays
         // Titre
         $html .= '<thead class="thead-dark"><tr>';
         foreach (array_keys($data[$first_id]) as $key => $title) {
-            $html .= "\n\t".'<th scope="col" class="th_'.$key.'">'.htmltxt($title, $encode).'</th>';
+            $html .= PHP_EOL."\t".'<th scope="col" class="th_'.$key.'">'.htmltxt($title, $encode).'</th>';
         }
 
         $html .= '</tr></thead>';
@@ -114,7 +114,7 @@ class Arrays extends NetteArrays
                     $content = nl2br(Html::convertUrlInString(htmltxt(trim($content), $encode)));
                 }
 
-                $html .= "\n\t".'<td class="td_'.$tdid.'">'.$content.'</td>';
+                $html .= PHP_EOL."\t".'<td class="td_'.$tdid.'">'.$content.'</td>';
             }
 
             $html .= '</tr>';
@@ -326,11 +326,8 @@ class Arrays extends NetteArrays
 
     /**
      * Return an array with all values from a array with mutliples subvalues.
-     *
-     * @param array|object $array
-     * @return array
      */
-    static public function values_recursive($array): array
+    static public function values_recursive(array|object $array): array
     {
         $flat = [];
 
@@ -353,15 +350,12 @@ class Arrays extends NetteArrays
 
     /**
      * Return an array with all values from a array with mutliples subvalues, using key as directory and added in value (recommande use with function "Folder::getArchitecture").
-     *
-     * @param array|object $array
-     * @param array|null $regexp_filename
-     * @param string|null $previus_dir
-     *
-     * @return array
      */
-    static public function values_recursive_files($array, ?array $regexp_filename = null, ?string $previus_dir = null): array
-    {
+    static public function values_recursive_files(
+        array|object $array,
+        ?array $regexp_filename = null,
+        ?string $previus_dir = null,
+    ): array {
         $flat = [];
 
         if (is_object($array)) {

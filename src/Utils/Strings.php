@@ -12,7 +12,7 @@ class Strings extends NetteString
     /**
      * Effectue la césure d'une chaîne (compatible UTF-8)
      */
-    static public function mb_wordwrap(string $str, int $width = 75, string $break = PHP_EOL, bool $cut = false): string
+    static public function mbWordwrap(string $str, int $width = 75, string $break = PHP_EOL, bool $cut = false): string
     {
         $lines = explode($break, $str);
         foreach ($lines as &$line) {
@@ -53,7 +53,7 @@ class Strings extends NetteString
     /**
      * Uppercase each first letter words (Multibyte (UTF-8) Function)
      */
-    static public function mb_ucwords(string $str, string $charset = 'UTF-8'): string
+    static public function mbUcwords(string $str, string $charset = 'UTF-8'): string
     {
         return mb_convert_case(mb_strtolower($str, $charset), MB_CASE_TITLE, $charset);
     }
@@ -149,7 +149,7 @@ class Strings extends NetteString
     /**
      * Encode specials chars only (useful for mailto:mailto:?subject={$title}&body={$content}).
      */
-    static public function urlencode_entities(string $text, string $charset = 'UTF-8'): string
+    static public function urlencodeEntities(string $text, string $charset = 'UTF-8'): string
     {
         static $chars = null, $replace = null;
 

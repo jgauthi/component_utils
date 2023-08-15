@@ -50,7 +50,7 @@ class Geocalisation
      * Récupérer la véritable adresse IP d'un visiteur.
      * @todo Get ip from terminal mode
      */
-    static public function get_ip(): ?string
+    static public function getIp(): ?string
     {
         if (isset($_SERVER['HTTP_CLIENT_IP'])) { // IP si internet partagé
             return $_SERVER['HTTP_CLIENT_IP'];

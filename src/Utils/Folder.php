@@ -31,11 +31,11 @@ class Folder
         return $liste;
     }
 
-    static public function displayArchitectureHtml(iterable $dir_array): string
+    static public function displayArchitectureHtml(iterable $dirArray): string
     {
         $html = '<ul>';
         $method = __METHOD__;
-        foreach ($dir_array as $index => $file) {
+        foreach ($dirArray as $index => $file) {
             if (is_array($file)) {
                 $html .= '<li class="dir"><strong>'.htmltxt($index).'</strong>';
                 $html .= $method($file);
@@ -51,15 +51,15 @@ class Folder
         return $html;
     }
 
-    static public function displayArchitectureMarkdown(iterable|string $dir_array, array $ignoreFileExtension = [], int $niv = -1): string
+    static public function displayArchitectureMarkdown(iterable|string $dirArray, array $ignoreFileExtension = [], int $niv = -1): string
     {
-        if (is_string($dir_array)) {
-            return "* {$dir_array}";
+        if (is_string($dirArray)) {
+            return "* {$dirArray}";
         }
 
         $markdown = '';
         $method = __METHOD__;
-        foreach ($dir_array as $index => $file) {
+        foreach ($dirArray as $index => $file) {
             if (is_string($file)) {
                 $fileInfo = pathinfo($file);
                 if (!empty($fileInfo['extension']) && in_array($fileInfo['extension'], $ignoreFileExtension)) {

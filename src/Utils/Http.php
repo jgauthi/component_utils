@@ -9,9 +9,8 @@ class Http
     /**
      * Usage for Legacy Code, use instead if possible: Symfony\Component\HttpFoundation\RedirectResponse
      * Example: applis/symfony/components/http-foundation/01-variable.php:11
-     * @param string|int $page
      */
-    static public function redirection($page): void
+    static public function redirection(string|int $page): void
     {
         // Page 404
         if (404 === $page) {
@@ -40,7 +39,7 @@ class Http
         exit();
     }
 
-    static public function reload_page(string $page, int $seconde = 5): string
+    static public function reloadPage(string $page, int $seconde = 5): string
     {
         $millisecond = $seconde * 1000;
 
@@ -54,7 +53,7 @@ class Http
      * Usage for Legacy Code, use instead if possible: UtilsSymfony\HttpSf::downloadFile
      * @throws InvalidArgumentException
      */
-    static public function download_file(string $file, int $fopenTimeout = 5): void
+    static public function downloadFile(string $file, int $fopenTimeout = 5): never
     {
         if (headers_sent()) {
             throw new InvalidArgumentException('Erreur détecté durant l\'execution du script, fin de parcours');
@@ -64,11 +63,7 @@ class Http
             throw new Exception('Error during open file: '. $file);
         }
 
-        // Conf php
-        set_time_limit(3600);
-        ini_set('max_execution_time', 0);
-        ini_set('max_input_time', 3600);
-        ini_set('memory_limit', '516M');
+        System::moreSystemMemory($fopenTimeout);
 
         // Informations du fichier
         $filename = basename($file);
@@ -92,17 +87,13 @@ class Http
      * Example: applis/symfony/components/http-foundation/10-SendStaticFile.php
      * @throws InvalidArgumentException
      */
-    static public function download_content(string $filename, string $content): void
+    static public function downloadContent(string $filename, string $content): never
     {
         if (headers_sent()) {
             throw new InvalidArgumentException('Erreur détecté durant l\'execution du script, fin de parcours');
         }
 
-        // Conf php
-        set_time_limit(3600);
-        ini_set('max_execution_time', 0);
-        ini_set('max_input_time', 3600);
-        ini_set('memory_limit', '516M');
+        System::moreSystemMemory($fopenTimeout);
 
         // Informations du fichier
         $taille = mb_strlen($content);

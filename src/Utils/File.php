@@ -48,7 +48,7 @@ class File
     /**
      * Retourne la capacité d'upload du serveur
      */
-    static public function get_upload_file_limit(): string
+    static public function getUploadFileLimit(): string
     {
         $normalize = function ($size) {
             if (preg_match('/^([\d\.]+)([KMG])$/i', $size, $match)) {
@@ -83,7 +83,7 @@ class File
     }
 
 
-    static public function nice_filename(string $filename): string
+    static public function niceFilename(string $filename): string
     {
         // Retirer les accents
         $filename = remove_accents(mb_strtolower(trim($filename)));
@@ -99,7 +99,7 @@ class File
     /**
      * Check if file exist, return false in case if file exist but have 0 octet (the file will be deleted)
      */
-    static public function file_exists_not_empty(string $filepath): bool
+    static public function fileExistsNotEmpty(string $filepath): bool
     {
         if (!file_exists($filepath)) {
             return false;

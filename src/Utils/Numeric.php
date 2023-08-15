@@ -6,7 +6,7 @@ class Numeric
     /**
      * @noinspection PhpUnnecessaryLocalVariableInspection
      */
-    static public function number_format(
+    static public function numberFormat(
         int|float|string $number,
         int $decimal = 2,
         string $decimal_separator = '.',
@@ -19,12 +19,12 @@ class Numeric
         return $numberFormatted;
     }
 
-    static public function number_format_fr(int|float|string $number, int $decimal = 2): string
+    static public function numberFormatFr(int|float|string $number, int $decimal = 2): string
     {
-        return self::number_format($number, $decimal, ',', ' ');
+        return self::numberFormat($number, $decimal, ',', ' ');
     }
 
-    static public function random_bool(int $chanceToProcTrue = 50): bool
+    static public function randomBool(int $chanceToProcTrue = 50): bool
     {
         try {
             if ($chanceToProcTrue < 0 || $chanceToProcTrue > 100) {

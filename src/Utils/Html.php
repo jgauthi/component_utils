@@ -6,7 +6,7 @@ use Nette\Utils\Html as NetteHtml;
 // Additionnals methods with https://doc.nette.org/en/utils/html-elements
 class Html extends NetteHtml
 {
-    static public function strip_body(string $html): string
+    static public function stripBody(string $html): string
     {
         // php4
         // return @eregi_replace("(^.+<body>)|(</body>.+$)", '', $html);
@@ -21,7 +21,7 @@ class Html extends NetteHtml
     /**
      * [WYSIWYG] Détecter si il y a un copier/coller issus de word
      */
-    static public function detect_msword_string(string $string): ?bool
+    static public function detectMswordString(string $string): ?bool
     {
         $list_regexp = [
             '#<!--\[if (g|l)te mso [0-9]*\]>#i',
@@ -44,7 +44,7 @@ class Html extends NetteHtml
      * Convertir les caractères non standards de Microsoft Word en ASCII + Retire de manière imparfaite, les balises de word
      * Use to check word html
      */
-    static public function msword_text_to_ascii(string $string): string
+    static public function mswordText2Ascii(string $string): string
     {
         if (self::detect_msword_string($string)) {
             $string = strip_tags($string, '<p><br><strong><b><em><i><u><ul><li><ol>');
@@ -59,7 +59,7 @@ class Html extends NetteHtml
         return $string;
     }
 
-    static public function is_html(string $string): bool
+    static public function isHtml(string $string): bool
     {
         return preg_match('/<[^<]+>/', $string, $m);
     }

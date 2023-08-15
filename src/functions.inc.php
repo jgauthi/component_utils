@@ -1,16 +1,10 @@
 <?php
-/**
- * @param mixed $var
- */
-function is_vide(&$var): bool
+function is_vide(mixed &$var): bool
 {
     return (null === $var || '' === trim($var));
 }
 
-/**
- * @param mixed ...$args
- */
-function is_vides(...$args): bool
+function is_vides(mixed ...$args): bool
 {
     foreach ($args as &$var) {
         if (is_vide($var)) {
@@ -23,10 +17,7 @@ function is_vides(...$args): bool
     return true;
 }
 
-/**
- * @param mixed ...$args
- */
-function is_empties(...$args): bool
+function is_empties(mixed ...$args): bool
 {
     foreach ($args as &$var) {
         if (empty($var)) {
@@ -46,10 +37,8 @@ function is_email(string $mail): bool
 
 /**
  * Preg match with a array pattern.
- *
- * @param string|array $pattern
  */
-function preg_match_pattern($pattern, string $subject, array &$matches = []): bool
+function preg_match_pattern(string|array $pattern, string $subject, array &$matches = []): bool
 {
     if (!is_array($pattern)) {
         return preg_match($pattern, $subject, $matches);
