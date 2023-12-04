@@ -11,4 +11,4 @@ $array2 = [10, 'color' => ['favorite' => 'green', 'blue']];
 $array = Arrays::mergeTree($array1, $array2); // use instead
 
 // $array = ['color' => ['favorite' => 'red', 'blue'], 5];
-dump($array);
+var_dump($array);

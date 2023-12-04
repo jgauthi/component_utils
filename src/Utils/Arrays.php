@@ -12,6 +12,14 @@ class Arrays extends NetteArrays
     // static public function combine(...$args): ?array
 
     /**
+     * Array version of array_key_exists.
+     */
+    static public function keys_exists(array $required, array $data): bool
+    {
+        return (count(array_intersect_key(array_flip($required), $data)) === count($required));
+    }
+
+    /**
      * Convert an array with items [ ['id' => 1, 'quantity' => 2], ... ]
      * to indexed version [ 1 => ['quantity' => 2], 2 => [...] ]
      * @param string|null $key if null, take the first field in array

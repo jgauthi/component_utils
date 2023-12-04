@@ -15,7 +15,7 @@ class Html extends NetteHtml
             return $row[1];
         }
 
-        return $html;
+        return trim($html);
     }
 
     /**

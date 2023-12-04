@@ -28,7 +28,7 @@ foreach ($dates as $date) {
     is Future: <strong><?=$isFuture?></strong>,
     Result: <?=$result?>
     </p>
-    <?php dump($dateCheck); ?>
+    <?php var_dump($dateCheck); ?>
     <hr>
     <?php
 }
