@@ -165,4 +165,32 @@ class Strings extends NetteString
 
         return $text;
     }
+
+    static public function base64url_encode(string $data): ?string
+    {
+        // First of all you should encode $data to Base64 string
+        $b64 = base64_encode($data);
+        if (!$b64) {
+            return null;
+        }
+
+        // Convert Base64 to Base64URL by replacing “+” with “-” and “/” with “_”
+        $url = strtr($b64, '+/', '-_');
+
+        // Remove padding character from the end of line and return the Base64URL result
+        return rtrim($url, '=');
+    }
+
+    /**
+     * Decode data from Base64URL
+     */
+    static public function base64url_decode(string $data, bool $strict = false): ?string
+    {
+        // Convert Base64URL to Base64 by replacing “-” with “+” and “_” with “/”
+        $b64 = strtr($data, '-_', '+/');
+
+        // Decode Base64 string and return the original data
+        $text = base64_decode($b64, $strict);
+        return ($text) ?: null;
+    }
 }
