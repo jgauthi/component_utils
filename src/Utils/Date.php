@@ -18,9 +18,13 @@ class Date extends NetteDateTime
      * Init a datetime class with several check exception
      * @throws Exception
      */
-    static public function new(string $time = 'now', ?DateTimeZone $timezone = null, ?bool $future = null): static
+    static public function new(string|int|\DateTimeInterface|null $time = 'now', ?DateTimeZone $timezone = null, ?bool $future = null): static
     {
-        $date = new static($time, $timezone);
+        $date = static::from($time);
+        if ($timezone !== null) {
+            $date = $date->setTimezone($timezone);
+        }
+
         return self::valideDate($date, $timezone, $future);
     }
 
@@ -143,16 +147,19 @@ class Date extends NetteDateTime
 
 
     /**
+     * @deprecated Use \DatePeriod directly
      * @throws Exception
      */
-    static public function date_interval(DateTimeInterface $start, DateTime $end, string $format = 'Y-m-d'): array
-    {
-        // Calcul date période
-        $interval = new DateInterval('P1D');
-        $dateRange = new DatePeriod($start, $interval, $end->modify('+1 day'));
-        $datePeriode = [];
+    static public function date_interval(
+        DateTimeInterface $start,
+        DateTimeInterface $end,
+        string $format = 'Y-m-d',
+        bool $includeEndDate = true,
+    ): array {
+        $interval = new DateInterval('P1D'); // 1 day interval
+        $dateRange = new DatePeriod($start, $interval, $end, $includeEndDate ? DatePeriod::INCLUDE_END_DATE : 0);
 
-        /** @var DateTimeInterface $date */
+        $datePeriode = [];
         foreach ($dateRange as $date) {
             $datePeriode[] = $date->format($format);
         }
